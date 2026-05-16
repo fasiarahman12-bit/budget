@@ -497,9 +497,26 @@ function showLoading(v){document.getElementById("loading-overlay").style.display
 
 function signInWithGoogle(){
   var provider=new firebase.auth.GoogleAuthProvider();
-  auth.signInWithPopup(provider).catch(function(e){alert("Sign-in failed: "+e.message);});
+  // iOS Safari blocks popups — use redirect on mobile
+  var isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  if(isMobile){
+    auth.signInWithRedirect(provider).catch(function(e){alert("Sign-in failed: "+e.message);});
+  }else{
+    auth.signInWithPopup(provider).catch(function(e){
+      if(e.code==="auth/popup-blocked"||e.code==="auth/cancelled-popup-request"){
+        auth.signInWithRedirect(provider);
+      }else{
+        alert("Sign-in failed: "+e.message);
+      }
+    });
+  }
 }
 function doSignOut(){if(confirm("Sign out of Budgie?"))auth.signOut();}
+
+// Handle redirect sign-in result (mobile)
+auth.getRedirectResult().catch(function(e){
+  if(e&&e.code&&e.code!=="auth/no-current-user"){alert("Sign-in failed: "+e.message);}
+});
 
 auth.onAuthStateChanged(function(user){
   currentUser=user;
