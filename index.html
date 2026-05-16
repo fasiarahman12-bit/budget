@@ -115,6 +115,24 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro D
 .chip{background:var(--accent-soft);border:1px solid #D8D2F0;border-radius:6px;padding:4px 11px;font-size:10px;color:var(--accent);font-weight:600}
 .chip.cur{background:var(--accent);color:#fff;border-color:transparent}
 
+/* SAVINGS GOALS */
+.goals-section{margin:0 16px 12px}
+.goals-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.goals-title{font-size:12px;font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:.9px}
+.add-goal-btn{font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);border:1px solid #D8D2F0;border-radius:6px;padding:5px 12px;cursor:pointer}
+.add-goal-btn:active{opacity:.7}
+.goal-row{display:flex;align-items:center;padding:14px 16px;background:var(--card);border-bottom:1px solid var(--border);cursor:pointer;gap:14px;position:relative}
+.goal-row:last-child{border-bottom:none}
+.goal-row:active{background:var(--card2)}
+.goal-info{flex:1;min-width:0}
+.goal-name{font-size:13px;font-weight:600;color:var(--text)}
+.goal-sub{font-size:11px;color:var(--dim);margin-top:2px}
+.goal-bar-wrap{height:3px;background:var(--card2);border-radius:2px;margin-top:7px}
+.goal-bar-fill{height:3px;border-radius:2px;background:var(--accent);transition:width .4s ease}
+.goal-right{text-align:right;flex-shrink:0;min-width:70px}
+.goal-pct{font-size:16px;font-weight:700;letter-spacing:-.3px}
+.goal-saved-lbl{font-size:9px;color:var(--dim);margin-top:2px;text-transform:uppercase;letter-spacing:.4px;font-weight:600}
+
 /* SECTIONS */
 .sec-divider{margin:20px 16px 8px;display:flex;align-items:center;gap:10px}
 .sec-title{font-size:12px;font-weight:800;color:var(--text);text-transform:uppercase;letter-spacing:.9px}
@@ -319,6 +337,17 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro D
   <div class="ib-chips" id="ib-chips"></div>
 </div>
 
+<!-- SAVINGS GOALS -->
+<div class="goals-section">
+  <div class="goals-hdr">
+    <span class="goals-title">Savings Goals</span>
+    <button class="add-goal-btn" onclick="openAddGoal()">+ Add Goal</button>
+  </div>
+  <div class="cat-group" id="goals-list">
+    <div class="empty" style="font-size:12px">Loading goals...</div>
+  </div>
+</div>
+
 <!-- FOOD -->
 <div class="sec-divider"><span class="sec-title">Food & Drink</span><span class="sec-pct-badge" id="sh-food">—</span></div>
 <div class="cat-group">
@@ -426,7 +455,7 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro D
   <div class="set-row"><div class="set-lbl">Mum spending</div><input class="set-inp" id="cfg-mum" type="number" min="0" max="100" step="0.5" oninput="updateAllocBar()"><span class="set-unit">%</span></div>
 </div>
 <button class="save-btn" onclick="saveSettings()">Save Settings</button>
-<p class="set-note">Set whatever you like — no need to add up to 100%.</p>
+<p class="set-note">Total must stay at or below 100% to save.</p>
 <button class="signout-btn" onclick="doSignOut()">Sign Out</button>
 <div id="user-info" style="font-size:11px;color:var(--dim);text-align:center;margin-bottom:16px"></div>
 </div>
@@ -493,6 +522,47 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro D
         <button class="bcn" onclick="closeImport()">Cancel</button>
         <button class="bad" onclick="confirmImport()">Import Selected</button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- GOAL DETAIL MODAL -->
+<div class="overlay" id="goal-ov" onclick="if(event.target===this)closeGoal()">
+  <div class="modal">
+    <div class="modal-pill"></div>
+    <div class="micon" id="goal-m-ic"></div>
+    <div class="mtitle" id="goal-m-name"></div>
+    <div class="msub" id="goal-m-sub"></div>
+    <div class="mrem" id="goal-m-saved" style="color:var(--accent)"></div>
+    <div style="font-size:12px;color:var(--dim);margin-bottom:6px">Add to savings:</div>
+    <input class="ainp" id="goal-amt" type="number" inputmode="decimal" placeholder="0.00" step="0.01" min="0">
+    <input class="ninp" id="goal-note" type="text" placeholder="Note — e.g. Birthday money">
+    <input class="ninp" id="goal-target-inp" type="number" inputmode="decimal" placeholder="Update target amount (optional)" step="1" min="0">
+    <div class="mbtns">
+      <button class="bcn" onclick="closeGoal()">Cancel</button>
+      <button class="bad" onclick="addToGoal()">Save</button>
+    </div>
+    <div style="text-align:center;margin-top:12px">
+      <a onclick="deleteGoal()" style="font-size:12px;color:var(--red);cursor:pointer">Remove this goal</a>
+    </div>
+  </div>
+</div>
+
+<!-- ADD GOAL MODAL -->
+<div class="overlay" id="add-goal-ov" onclick="if(event.target===this)closeAddGoal()">
+  <div class="modal">
+    <div class="modal-pill"></div>
+    <div class="micon">🎯</div>
+    <div class="mtitle">New Savings Goal</div>
+    <div class="msub">What are you saving towards?</div>
+    <div style="display:flex;gap:8px;margin-bottom:4px">
+      <input class="ninp" id="new-goal-emoji" type="text" placeholder="🌟" style="width:62px;text-align:center;font-size:22px;margin-top:0;flex-shrink:0;padding:8px">
+      <input class="ninp" id="new-goal-name" type="text" placeholder="Goal name — e.g. Holiday" style="margin-top:0;flex:1">
+    </div>
+    <input class="ainp" id="new-goal-target" type="number" inputmode="decimal" placeholder="Target £ amount" step="1" min="0">
+    <div class="mbtns">
+      <button class="bcn" onclick="closeAddGoal()">Cancel</button>
+      <button class="bad" onclick="confirmAddGoal()">Create Goal</button>
     </div>
   </div>
 </div>
@@ -637,13 +707,22 @@ async function loadUserData(){
     dbCache={};
     monthsSnap.forEach(function(doc){dbCache[doc.id]=doc.data();});
     data=dbCache[mkey()]||{income:0,txns:[]};
+    // Load goals
+    var goalsDoc=await db.collection("users").doc(uid).collection("data").doc("goals").get();
+    if(goalsDoc.exists&&goalsDoc.data().goals&&goalsDoc.data().goals.length){
+      goals=goalsDoc.data().goals;
+    }else{
+      goals=JSON.parse(JSON.stringify(DEFAULT_GOALS));
+    }
   }catch(e){
     console.error("Load error:",e);
     CFG=Object.assign({},DEF);
     data={income:0,txns:[]};
+    goals=JSON.parse(JSON.stringify(DEFAULT_GOALS));
   }
   showState("app");
   render();
+  renderGoals();
 }
 
 function syncData(d,y,m){
@@ -885,14 +964,148 @@ function updateAllocBar(){
   fill.style.background=over?"var(--red)":total>=90?"var(--gold)":"var(--accent)";
   document.getElementById("alloc-used").textContent=Math.round(total*10)/10+"% allocated";
   document.getElementById("alloc-left").textContent=over?"⚠ Over by "+Math.round((total-100)*10)/10+"%":(100-Math.round(total*10)/10)+"% unallocated";
+  var btn=document.querySelector(".save-btn");
+  if(btn){
+    btn.disabled=over;
+    btn.style.opacity=over?"0.45":"1";
+    btn.style.cursor=over?"not-allowed":"pointer";
+    btn.textContent=over?"Reduce percentages to save":"Save Settings";
+  }
 }
 function saveSettings(){
+  var total=0;
+  Object.keys(DEF).forEach(function(k){var el=document.getElementById("cfg-"+k);if(el)total+=parseFloat(el.value)||0;});
+  if(total>100){
+    alert("Total allocation is "+Math.round(total*10)/10+"% — reduce your percentages to 100% or less before saving.");
+    return;
+  }
   Object.keys(DEF).forEach(function(k){var el=document.getElementById("cfg-"+k);if(el){var v=parseFloat(el.value);if(!isNaN(v)&&v>=0)CFG[k]=v;}});
   syncCfg(CFG);
   var btn=document.querySelector(".save-btn");
-  btn.textContent="✓ Saved";btn.style.background="var(--green)";
-  setTimeout(function(){btn.textContent="Save Settings";btn.style.background="";},2000);
+  btn.textContent="✓ Saved";btn.style.background="var(--green)";btn.style.opacity="1";
+  setTimeout(function(){btn.textContent="Save Settings";btn.style.background="";updateAllocBar();},2000);
   render();
+}
+
+// ── SAVINGS GOALS ────────────────────────────────────────────────────
+var goals=[];
+var DEFAULT_GOALS=[
+  {id:"uni",name:"Uni Fees",emoji:"🎓",target:0,saved:0},
+  {id:"car",name:"Car",emoji:"🚗",target:0,saved:0}
+];
+var activeGoalIdx=-1;
+
+function loadGoals(){
+  if(!currentUser)return Promise.resolve();
+  return db.collection("users").doc(currentUser.uid).collection("data").doc("goals").get()
+    .then(function(doc){
+      if(doc.exists&&doc.data().goals&&doc.data().goals.length){
+        goals=doc.data().goals;
+      }else{
+        goals=JSON.parse(JSON.stringify(DEFAULT_GOALS));
+      }
+      renderGoals();
+    }).catch(function(e){
+      console.error("Goals load error:",e);
+      goals=JSON.parse(JSON.stringify(DEFAULT_GOALS));
+      renderGoals();
+    });
+}
+
+function saveGoals(){
+  if(!currentUser)return;
+  db.collection("users").doc(currentUser.uid).collection("data").doc("goals")
+    .set({goals:goals}).catch(function(e){console.error("Goals save:",e);});
+}
+
+function renderGoals(){
+  var list=document.getElementById("goals-list");
+  if(!list)return;
+  if(!goals.length){list.innerHTML='<div class="empty">No goals yet — tap + Add Goal</div>';return;}
+  list.innerHTML="";
+  goals.forEach(function(g,i){
+    var target=g.target||0;
+    var saved=g.saved||0;
+    var pct=target>0?Math.min(saved/target*100,100):0;
+    var complete=target>0&&saved>=target;
+    var row=document.createElement("div");
+    row.className="goal-row";
+    row.onclick=function(){openGoal(i);};
+    row.innerHTML=
+      '<div class="ci" style="background:var(--accent-soft)">'+g.emoji+'</div>'+
+      '<div class="goal-info">'+
+        '<div class="goal-name">'+g.name+(complete?' ✅':'')+'</div>'+
+        '<div class="goal-sub">'+(target>0?'Saved '+fmt(saved)+' of '+fmt(target):'Tap to set a target & add savings')+'</div>'+
+        '<div class="goal-bar-wrap"><div class="goal-bar-fill" style="width:'+pct+'%;background:'+(complete?'var(--green)':'var(--accent)')+'"></div></div>'+
+      '</div>'+
+      '<div class="goal-right">'+
+        '<div class="goal-pct" style="color:'+(complete?'var(--green)':'var(--accent)')+'">'+Math.round(pct)+'%</div>'+
+        '<div class="goal-saved-lbl">'+(target>0?fmt(target)+' goal':'no target')+'</div>'+
+      '</div>';
+    list.appendChild(row);
+  });
+}
+
+function openGoal(i){
+  activeGoalIdx=i;
+  var g=goals[i];
+  var target=g.target||0;var saved=g.saved||0;
+  var pct=target>0?Math.min(Math.round(saved/target*100),100):0;
+  document.getElementById("goal-m-ic").textContent=g.emoji;
+  document.getElementById("goal-m-name").textContent=g.name;
+  document.getElementById("goal-m-sub").textContent=target>0?("Saved "+fmt(saved)+" of "+fmt(target)+" · "+pct+"% complete"):"No target set yet";
+  var re=document.getElementById("goal-m-saved");
+  re.textContent=fmt(saved)+" saved";
+  re.style.color=pct>=100?"var(--green)":"var(--accent)";
+  document.getElementById("goal-amt").value="";
+  document.getElementById("goal-note").value="";
+  document.getElementById("goal-target-inp").value=target||"";
+  document.getElementById("goal-ov").classList.add("show");
+  setTimeout(function(){document.getElementById("goal-amt").focus();},280);
+}
+function closeGoal(){document.getElementById("goal-ov").classList.remove("show");activeGoalIdx=-1;}
+
+function addToGoal(){
+  if(activeGoalIdx<0)return;
+  var g=goals[activeGoalIdx];
+  var newTarget=parseFloat(document.getElementById("goal-target-inp").value);
+  if(!isNaN(newTarget)&&newTarget>=0)g.target=newTarget;
+  var amt=parseFloat(document.getElementById("goal-amt").value);
+  if(amt>0)g.saved=(g.saved||0)+amt;
+  goals[activeGoalIdx]=g;
+  saveGoals();
+  renderGoals();
+  closeGoal();
+  showToast("Goal updated!");
+}
+
+function deleteGoal(){
+  if(activeGoalIdx<0)return;
+  if(!confirm("Remove goal '"+goals[activeGoalIdx].name+"'?"))return;
+  goals.splice(activeGoalIdx,1);
+  saveGoals();
+  renderGoals();
+  closeGoal();
+}
+
+function openAddGoal(){
+  document.getElementById("new-goal-emoji").value="⭐";
+  document.getElementById("new-goal-name").value="";
+  document.getElementById("new-goal-target").value="";
+  document.getElementById("add-goal-ov").classList.add("show");
+  setTimeout(function(){document.getElementById("new-goal-name").focus();},280);
+}
+function closeAddGoal(){document.getElementById("add-goal-ov").classList.remove("show");}
+function confirmAddGoal(){
+  var emoji=(document.getElementById("new-goal-emoji").value.trim()||"⭐");
+  var name=document.getElementById("new-goal-name").value.trim();
+  var target=parseFloat(document.getElementById("new-goal-target").value)||0;
+  if(!name){alert("Please enter a goal name.");return;}
+  goals.push({id:"goal_"+Date.now(),name:name,emoji:emoji,target:target,saved:0});
+  saveGoals();
+  renderGoals();
+  closeAddGoal();
+  showToast("Goal added!");
 }
 
 // ── IMPORT ──────────────────────────────────────────────────────────
