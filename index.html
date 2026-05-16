@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-title" content="Budgie">
 <meta name="theme-color" content="#F7F4EF">
 <title>Budgie</title>
-<link id="app-icon" rel="apple-touch-icon">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxODAgMTgwJz4KPHJlY3Qgd2lkdGg9JzE4MCcgaGVpZ2h0PScxODAnIHJ4PSczNicgZmlsbD0nI0VBRjVGMCcvPgo8cGF0aCBkPSdNNjUgMTQ4IFE2OCAxNzUgODMgMTYzIFE5MCAxNzIgOTcgMTYzIFExMTIgMTc1IDExNSAxNDhaJyBmaWxsPScjNUE5NDc4Jy8+CjxlbGxpcHNlIGN4PSc5MCcgY3k9JzExMCcgcng9JzQwJyByeT0nNDYnIGZpbGw9JyM3REM0QTgnLz4KPGVsbGlwc2UgY3g9JzcyJyBjeT0nMTE2JyByeD0nMjYnIHJ5PSczNicgZmlsbD0nIzZBQUY5NScvPgo8ZWxsaXBzZSBjeD0nOTYnIGN5PScxMTgnIHJ4PScyMCcgcnk9JzI3JyBmaWxsPScjQjJEREQwJy8+CjxjaXJjbGUgY3g9JzkwJyBjeT0nNjAnIHI9JzMwJyBmaWxsPScjOUVDRkI4Jy8+CjxlbGxpcHNlIGN4PSc4MCcgY3k9JzM0JyByeD0nNicgcnk9JzEyJyBmaWxsPScjN0RDNEE4JyB0cmFuc2Zvcm09J3JvdGF0ZSgtMTcgODAgMzQpJy8+CjxlbGxpcHNlIGN4PSc5MCcgY3k9JzMxJyByeD0nNicgcnk9JzEzJyBmaWxsPScjN0RDNEE4Jy8+CjxlbGxpcHNlIGN4PScxMDAnIGN5PSczNCcgcng9JzYnIHJ5PScxMicgZmlsbD0nIzdEQzRBOCcgdHJhbnNmb3JtPSdyb3RhdGUoMTcgMTAwIDM0KScvPgo8Y2lyY2xlIGN4PScxMTAnIGN5PSc3Micgcj0nMTAnIGZpbGw9JyNCMDkwRDAnIG9wYWNpdHk9Jy44MicvPgo8Y2lyY2xlIGN4PScxMDAnIGN5PSc1OCcgcj0nOScgZmlsbD0nd2hpdGUnLz4KPGNpcmNsZSBjeD0nMTAyJyBjeT0nNTgnIHI9JzYnIGZpbGw9JyMxQTE2MTQnLz4KPGNpcmNsZSBjeD0nMTA0JyBjeT0nNTUnIHI9JzIuNScgZmlsbD0nd2hpdGUnLz4KPGVsbGlwc2UgY3g9JzkwJyBjeT0nNjknIHJ4PSc4JyByeT0nNScgZmlsbD0nIzgyQUFEMicgb3BhY2l0eT0nLjg1Jy8+CjxwYXRoIGQ9J004NCA3MyBROTAgODQgOTYgNzMgUTkwIDY2IDg0IDczWicgZmlsbD0nI0M5OTU0QScvPgo8L3N2Zz4=">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
@@ -1003,49 +1003,6 @@ document.addEventListener("keydown",function(e){
 });
 render();
 
-// ── BUDGIE ICON ─────────────────────────────────────────────────────
-(function(){
-  var cv=document.createElement('canvas');cv.width=180;cv.height=180;
-  var c=cv.getContext('2d');
-  function rr(x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath();}
-  function el(x,y,rx,ry){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);}
-  // background
-  c.fillStyle='#EAF5F0';rr(0,0,180,180,36);c.fill();
-  // tail
-  c.fillStyle='#5A9478';c.beginPath();c.moveTo(65,148);c.quadraticCurveTo(68,175,83,163);c.quadraticCurveTo(90,172,97,163);c.quadraticCurveTo(112,175,115,148);c.closePath();c.fill();
-  // body
-  c.fillStyle='#7DC4A8';el(90,110,40,46);c.fill();
-  // wing shading
-  c.fillStyle='#6AAF95';el(72,116,26,36);c.fill();
-  // belly
-  c.fillStyle='#B2DDD0';el(96,118,20,27);c.fill();
-  // neck
-  c.fillStyle='#9ECFB8';el(90,80,22,16);c.fill();
-  // head
-  c.fillStyle='#9ECFB8';c.beginPath();c.arc(90,60,30,0,Math.PI*2);c.fill();
-  // head feathers
-  c.fillStyle='#7DC4A8';
-  c.save();c.translate(80,34);c.rotate(-0.3);el(0,0,6,12);c.fill();c.restore();
-  el(90,31,6,13);c.fill();
-  c.save();c.translate(100,34);c.rotate(0.3);el(0,0,6,12);c.fill();c.restore();
-  // cheek spot
-  c.fillStyle='rgba(176,144,208,0.82)';c.beginPath();c.arc(110,72,10,0,Math.PI*2);c.fill();
-  // eye white
-  c.fillStyle='#fff';c.beginPath();c.arc(100,58,9,0,Math.PI*2);c.fill();
-  // pupil
-  c.fillStyle='#1A1614';c.beginPath();c.arc(102,58,6,0,Math.PI*2);c.fill();
-  // shine
-  c.fillStyle='#fff';c.beginPath();c.arc(104,55,2.5,0,Math.PI*2);c.fill();
-  // cere (above beak, blue/grey for male)
-  c.fillStyle='rgba(130,170,210,0.85)';el(90,69,8,5);c.fill();
-  // beak
-  c.fillStyle='#C9954A';c.beginPath();c.moveTo(84,73);c.quadraticCurveTo(90,84,96,73);c.quadraticCurveTo(90,66,84,73);c.fill();
-  // feet/perch hint
-  c.strokeStyle='#C9954A';c.lineWidth=3;c.lineCap='round';
-  [[78,152,74,166],[78,152,78,166],[78,152,82,166],[102,152,98,166],[102,152,102,166],[102,152,106,166]].forEach(function(p){c.beginPath();c.moveTo(p[0],p[1]);c.lineTo(p[2],p[3]);c.stroke();});
-  var lnk=document.getElementById('app-icon');
-  if(lnk)lnk.href=cv.toDataURL('image/png');
-})();
 </script>
 </body>
 </html>
