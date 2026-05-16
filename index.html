@@ -501,51 +501,60 @@ function showState(s){
   document.getElementById("app-wrap").style.display=s==="app"?"block":"none";
 }
 
+var _signInBusy=false;
 function signInWithGoogle(){
-  var provider=new firebase.auth.GoogleAuthProvider();
+  if(_signInBusy)return; // prevent double-tap
+  _signInBusy=true;
   var btn=document.getElementById("login-btn");
-  btn.textContent="Connecting...";btn.disabled=true;
-  // Always use redirect — works on all browsers and iOS Safari
-  auth.signInWithRedirect(provider).catch(function(e){
-    btn.textContent="Continue with Google";btn.disabled=false;
-    alert("Sign-in failed: "+e.message);
-  });
+  if(btn){btn.textContent="Opening Google...";btn.disabled=true;}
+  var provider=new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+    .then(function(){_signInBusy=false;})
+    .catch(function(e){
+      _signInBusy=false;
+      if(btn){btn.textContent="Continue with Google";btn.disabled=false;}
+      if(e.code==="auth/popup-blocked"){
+        // Popup blocked by browser — fall back to redirect
+        auth.signInWithRedirect(provider);
+      }else if(e.code==="auth/popup-closed-by-user"||e.code==="auth/cancelled-popup-request"){
+        // User closed it or tapped twice — just reset silently
+      }else{
+        alert("Sign-in error: "+e.message);
+      }
+    });
 }
 function doSignOut(){if(confirm("Sign out of Budgie?"))auth.signOut();}
 
-// Show loading state immediately while Firebase checks auth
+// Show loading while Firebase checks existing session
 showState("loading");
 
-// Handle redirect result first, then let onAuthStateChanged take over
-auth.getRedirectResult().catch(function(e){
-  if(e&&e.code&&e.code!=="auth/no-current-user"&&e.code!=="auth/null-user"){
-    console.warn("Redirect error:",e.code);
-  }
-});
+// Handle any pending redirect result (fallback path)
+auth.getRedirectResult().then(function(result){
+  if(result&&result.user){console.log("Redirect sign-in complete");}
+}).catch(function(e){console.warn("Redirect result:",e.code);});
 
+var _authDone=false;
 auth.onAuthStateChanged(function(user){
+  _authDone=true;
   try{
-    currentUser=user;
     if(user){
-      // Set user display info safely
+      currentUser=user;
       var name="User";
       try{name=user.displayName?user.displayName.split(" ")[0]:(user.email?user.email.split("@")[0]:"User");}catch(ne){}
       var nameEl=document.getElementById("user-name");if(nameEl)nameEl.textContent=name;
       var infoEl=document.getElementById("user-info");if(infoEl)infoEl.textContent="Signed in as "+(user.email||user.uid);
-      // Show loading while data fetches, then reveal app
       showState("loading");
       loadUserData();
     }else{
-      dbCache={};
+      currentUser=null;dbCache={};
       showState("login");
       var btn=document.getElementById("login-btn");
       if(btn){btn.textContent="Continue with Google";btn.disabled=false;}
     }
-  }catch(err){
-    console.error("Auth state error:",err);
-    showState("login");
-  }
+  }catch(err){console.error("Auth state error:",err);showState("login");}
 });
+// Safety net: if Firebase never responds, show login after 8s
+setTimeout(function(){if(!_authDone)showState("login");},8000);
 
 async function loadUserData(){
   try{
