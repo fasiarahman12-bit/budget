@@ -325,13 +325,13 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro D
 
 <div class="summary">
   <div class="sc"><div class="sc-lbl">Spent</div><div class="sc-val" id="s-sp" style="color:var(--red)">£0</div></div>
-  <div class="sc"><div class="sc-lbl">Invested</div><div class="sc-val" id="s-in" style="color:var(--accent)">£0</div></div>
+  <div class="sc"><div class="sc-lbl">Invest+Save</div><div class="sc-val" id="s-in" style="color:var(--accent)">£0</div></div>
   <div class="sc"><div class="sc-lbl">Left Over</div><div class="sc-val" id="s-lf" style="color:var(--green)">£0</div></div>
 </div>
 
 <div class="inv-banner">
   <div class="ib-row">
-    <div><div class="ib-label">Total Invested</div><div class="ib-sub">All time · across all months</div></div>
+    <div><div class="ib-label" id="ib-label">Investments & Savings</div><div class="ib-sub" id="ib-sub">All time · invested + goals saved</div></div>
     <div class="ib-val" id="total-inv">£0</div>
   </div>
   <div class="ib-chips" id="ib-chips"></div>
@@ -420,7 +420,11 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro D
 </div>
 <div class="set-section">
   <div class="set-head">Invest & Save</div>
-  <div class="set-row"><div class="set-lbl">Invest each month</div><input class="set-inp" id="cfg-invest" type="number" min="0" max="100" step="0.5" oninput="updateAllocBar()"><span class="set-unit">%</span></div>
+  <div class="set-row"><div class="set-lbl">📈 Investments (e.g. Trading 212)</div><input class="set-inp" id="cfg-invest" type="number" min="0" max="100" step="0.5" oninput="updateAllocBar()"><span class="set-unit">%</span></div>
+  <div id="goal-settings-rows"></div>
+  <div style="padding:10px 18px 12px;border-top:1px solid var(--border)">
+    <button onclick="openAddGoal()" style="font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);border:1px solid #D8D2F0;border-radius:6px;padding:7px 14px;cursor:pointer;width:100%">+ Add Savings Goal</button>
+  </div>
 </div>
 <div class="set-section">
   <div class="set-head">Food & Drink</div>
@@ -534,10 +538,16 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro D
     <div class="mtitle" id="goal-m-name"></div>
     <div class="msub" id="goal-m-sub"></div>
     <div class="mrem" id="goal-m-saved" style="color:var(--accent)"></div>
-    <div style="font-size:12px;color:var(--dim);margin-bottom:6px">Add to savings:</div>
+    <div style="font-size:12px;color:var(--dim);margin-bottom:6px">Add money to this goal:</div>
     <input class="ainp" id="goal-amt" type="number" inputmode="decimal" placeholder="0.00" step="0.01" min="0">
     <input class="ninp" id="goal-note" type="text" placeholder="Note — e.g. Birthday money">
-    <input class="ninp" id="goal-target-inp" type="number" inputmode="decimal" placeholder="Update target amount (optional)" step="1" min="0">
+    <div style="display:flex;gap:8px;margin-top:14px">
+      <input class="ninp" id="goal-target-inp" type="number" inputmode="decimal" placeholder="Target amount £" step="1" min="0" style="margin-top:0;flex:1">
+      <div style="display:flex;align-items:center;gap:4px;border:1px solid var(--border);border-radius:4px;padding:0 12px;background:var(--card2);flex-shrink:0">
+        <input id="goal-pct-inp" type="number" inputmode="decimal" placeholder="%" step="0.5" min="0" max="100" style="width:42px;border:none;background:transparent;font-size:14px;font-weight:700;color:var(--text);outline:none;text-align:center">
+        <span style="font-size:13px;color:var(--dim)">% /mo</span>
+      </div>
+    </div>
     <div class="mbtns">
       <button class="bcn" onclick="closeGoal()">Cancel</button>
       <button class="bad" onclick="addToGoal()">Save</button>
@@ -559,7 +569,13 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro D
       <input class="ninp" id="new-goal-emoji" type="text" placeholder="🌟" style="width:62px;text-align:center;font-size:22px;margin-top:0;flex-shrink:0;padding:8px">
       <input class="ninp" id="new-goal-name" type="text" placeholder="Goal name — e.g. Holiday" style="margin-top:0;flex:1">
     </div>
-    <input class="ainp" id="new-goal-target" type="number" inputmode="decimal" placeholder="Target £ amount" step="1" min="0">
+    <div style="display:flex;gap:8px">
+      <input class="ninp" id="new-goal-target" type="number" inputmode="decimal" placeholder="Target £ amount" step="1" min="0" style="margin-top:0;flex:1">
+      <div style="display:flex;align-items:center;gap:4px;border:1px solid var(--border);border-radius:4px;padding:0 12px;background:var(--card2);flex-shrink:0">
+        <input id="new-goal-pct" type="number" inputmode="decimal" placeholder="%" step="0.5" min="0" max="100" style="width:42px;border:none;background:transparent;font-size:14px;font-weight:700;color:var(--text);outline:none;text-align:center">
+        <span style="font-size:13px;color:var(--dim)">% /mo</span>
+      </div>
+    </div>
     <div class="mbtns">
       <button class="bcn" onclick="closeAddGoal()">Cancel</button>
       <button class="bad" onclick="confirmAddGoal()">Create Goal</button>
@@ -796,6 +812,8 @@ function allMonths(){
   return res.sort(function(a,b){return a.y!==b.y?a.y-b.y:a.m-b.m;});
 }
 function totalInvested(){return allMonths().reduce(function(s,x){return s+(x.d.income||0)*CFG.invest/100;},0);}
+function totalGoalsSaved(){return goals.reduce(function(s,g){return s+(g.saved||0);},0);}
+function totalGoalsMonthly(){return goals.reduce(function(s,g){return s+(g.percent||0);},0)*data.income/100;}
 
 function prevMonth(){VM--;if(VM<0){VM=11;VY--;}data=load();render();}
 function nextMonth(){VM++;if(VM>11){VM=0;VY++;}data=load();render();}
@@ -812,11 +830,20 @@ function showPage(p){
 function render(){
   document.getElementById("mon-lbl").textContent=MO[VM]+" "+VY;
   document.getElementById("inc-disp").textContent=fmt(data.income);
-  var ts=totalSpent(),actualInv=totalActualInvested(),inv=actualInv>0?actualInv:data.income*CFG.invest/100,lft=data.income-ts-(data.income*CFG.invest/100);
+  var ts=totalSpent();
+  var actualInv=totalActualInvested();
+  var invBudget=data.income*CFG.invest/100;
+  var inv=actualInv>0?actualInv:invBudget;
+  var goalsMo=totalGoalsMonthly();
+  var lft=data.income-ts-invBudget-goalsMo;
   document.getElementById("s-sp").textContent=fmt(ts);
-  document.getElementById("s-in").textContent=fmt(inv);
+  document.getElementById("s-in").textContent=fmt(inv+goalsMo);
   var le=document.getElementById("s-lf");le.textContent=fmt(lft);le.style.color=lft<0?"var(--red)":"var(--green)";
-  document.getElementById("total-inv").textContent=fmt(totalInvested());
+  // Banner: total invested + total goals saved
+  var allTimeSaved=totalGoalsSaved();
+  document.getElementById("total-inv").textContent=fmt(totalInvested()+allTimeSaved);
+  var ibSub=document.getElementById("ib-sub");
+  if(ibSub)ibSub.textContent="All time · "+fmt(totalInvested())+" invested + "+fmt(allTimeSaved)+" saved";
 
   var c=CFG;
   document.getElementById("sh-food").textContent=(c.eating+c.snacks+c.grocery)+"%";
@@ -826,15 +853,22 @@ function render(){
   document.getElementById("sh-uni").textContent=c.uni+"%";
   document.getElementById("sh-other").textContent=(c.extra+c.mum)+"%";
 
+  // Chips: investment per month + goal chips
   var months=allMonths();
   var chips=document.getElementById("ib-chips");chips.innerHTML="";
-  months.forEach(function(x){
-    var chip=document.createElement("div");
-    chip.className="chip"+(x.y===VY&&x.m===VM?" cur":"");
-    chip.textContent=MOS[x.m]+" "+x.y+" · "+fmt((x.d.income||0)*CFG.invest/100);
-    chips.appendChild(chip);
+  var invChip=document.createElement("div");
+  invChip.className="chip"+(months.some(function(x){return x.y===VY&&x.m===VM;})?" cur":"");
+  invChip.textContent="📈 "+fmt(invBudget)+" invested this month";
+  if(invBudget>0)chips.appendChild(invChip);
+  goals.forEach(function(g){
+    if((g.percent||0)>0){
+      var gc=document.createElement("div");
+      gc.className="chip";
+      gc.textContent=g.emoji+" "+fmt(data.income*(g.percent||0)/100)+"/mo · "+fmt(g.saved||0)+" saved";
+      chips.appendChild(gc);
+    }
   });
-  if(!months.length)chips.innerHTML='<span style="font-size:10px;color:var(--dim)">No months logged yet</span>';
+  if(!chips.children.length)chips.innerHTML='<span style="font-size:10px;color:var(--dim)">Set your income & percentages to see allocations</span>';
 
   var P=pcts();
   Object.keys(P).forEach(function(id){
@@ -953,17 +987,31 @@ function toggleMonthDrop(mi){
 
 function loadSettingsUI(){
   Object.keys(DEF).forEach(function(k){var el=document.getElementById("cfg-"+k);if(el)el.value=CFG[k];});
+  // Render goal % rows dynamically
+  var cont=document.getElementById("goal-settings-rows");
+  if(cont){
+    cont.innerHTML="";
+    goals.forEach(function(g,i){
+      var row=document.createElement("div");
+      row.className="set-row";
+      row.style.cssText="border-top:1px solid var(--border)";
+      row.innerHTML='<div class="set-lbl">'+g.emoji+' '+g.name+'</div>'+
+        '<input class="set-inp" id="cfg-goal-'+i+'" type="number" min="0" max="100" step="0.5" value="'+(g.percent||0)+'" oninput="updateAllocBar()">'+
+        '<span class="set-unit">%</span>';
+      cont.appendChild(row);
+    });
+  }
   updateAllocBar();
 }
 function updateAllocBar(){
   var total=0;
   Object.keys(DEF).forEach(function(k){var el=document.getElementById("cfg-"+k);if(el)total+=parseFloat(el.value)||0;});
+  goals.forEach(function(g,i){var el=document.getElementById("cfg-goal-"+i);if(el)total+=parseFloat(el.value)||0;});
   var pct=Math.min(total,100),over=total>100;
   var fill=document.getElementById("alloc-fill");
-  fill.style.width=pct+"%";
-  fill.style.background=over?"var(--red)":total>=90?"var(--gold)":"var(--accent)";
-  document.getElementById("alloc-used").textContent=Math.round(total*10)/10+"% allocated";
-  document.getElementById("alloc-left").textContent=over?"⚠ Over by "+Math.round((total-100)*10)/10+"%":(100-Math.round(total*10)/10)+"% unallocated";
+  if(fill){fill.style.width=pct+"%";fill.style.background=over?"var(--red)":total>=90?"var(--gold)":"var(--accent)";}
+  var used=document.getElementById("alloc-used");if(used)used.textContent=Math.round(total*10)/10+"% allocated";
+  var left=document.getElementById("alloc-left");if(left)left.textContent=over?"⚠ Over by "+Math.round((total-100)*10)/10+"%":(100-Math.round(total*10)/10)+"% unallocated";
   var btn=document.querySelector(".save-btn");
   if(btn){
     btn.disabled=over;
@@ -975,23 +1023,28 @@ function updateAllocBar(){
 function saveSettings(){
   var total=0;
   Object.keys(DEF).forEach(function(k){var el=document.getElementById("cfg-"+k);if(el)total+=parseFloat(el.value)||0;});
+  goals.forEach(function(g,i){var el=document.getElementById("cfg-goal-"+i);if(el)total+=parseFloat(el.value)||0;});
   if(total>100){
     alert("Total allocation is "+Math.round(total*10)/10+"% — reduce your percentages to 100% or less before saving.");
     return;
   }
   Object.keys(DEF).forEach(function(k){var el=document.getElementById("cfg-"+k);if(el){var v=parseFloat(el.value);if(!isNaN(v)&&v>=0)CFG[k]=v;}});
+  // Save goal percents
+  goals.forEach(function(g,i){var el=document.getElementById("cfg-goal-"+i);if(el){var v=parseFloat(el.value);if(!isNaN(v)&&v>=0)goals[i].percent=v;}});
   syncCfg(CFG);
+  saveGoals();
   var btn=document.querySelector(".save-btn");
   btn.textContent="✓ Saved";btn.style.background="var(--green)";btn.style.opacity="1";
   setTimeout(function(){btn.textContent="Save Settings";btn.style.background="";updateAllocBar();},2000);
   render();
+  renderGoals();
 }
 
 // ── SAVINGS GOALS ────────────────────────────────────────────────────
 var goals=[];
 var DEFAULT_GOALS=[
-  {id:"uni",name:"Uni Fees",emoji:"🎓",target:0,saved:0},
-  {id:"car",name:"Car",emoji:"🚗",target:0,saved:0}
+  {id:"uni",name:"Uni Fees",emoji:"🎓",target:0,saved:0,percent:0},
+  {id:"car",name:"Car",emoji:"🚗",target:0,saved:0,percent:0}
 ];
 var activeGoalIdx=-1;
 
@@ -1026,21 +1079,30 @@ function renderGoals(){
   goals.forEach(function(g,i){
     var target=g.target||0;
     var saved=g.saved||0;
-    var pct=target>0?Math.min(saved/target*100,100):0;
+    var goalPct=g.percent||0;
+    var monthlyAlloc=data.income*goalPct/100;
+    var targetPct=target>0?Math.min(saved/target*100,100):0;
     var complete=target>0&&saved>=target;
     var row=document.createElement("div");
     row.className="goal-row";
     row.onclick=function(){openGoal(i);};
+    var allocLine=goalPct>0
+      ? (fmt(monthlyAlloc)+' set aside/mo · '+goalPct+'% of pay')
+      : 'No % set — go to Settings to allocate';
+    var progressLine=target>0
+      ? 'Saved '+fmt(saved)+' of '+fmt(target)+(complete?' · Complete! 🎉':'')
+      : 'Tap to set a target';
     row.innerHTML=
       '<div class="ci" style="background:var(--accent-soft)">'+g.emoji+'</div>'+
       '<div class="goal-info">'+
         '<div class="goal-name">'+g.name+(complete?' ✅':'')+'</div>'+
-        '<div class="goal-sub">'+(target>0?'Saved '+fmt(saved)+' of '+fmt(target):'Tap to set a target & add savings')+'</div>'+
-        '<div class="goal-bar-wrap"><div class="goal-bar-fill" style="width:'+pct+'%;background:'+(complete?'var(--green)':'var(--accent)')+'"></div></div>'+
+        '<div class="goal-sub">'+progressLine+'</div>'+
+        '<div class="goal-sub" style="color:var(--accent);margin-top:1px">'+allocLine+'</div>'+
+        '<div class="goal-bar-wrap"><div class="goal-bar-fill" style="width:'+targetPct+'%;background:'+(complete?'var(--green)':'var(--accent)')+'"></div></div>'+
       '</div>'+
       '<div class="goal-right">'+
-        '<div class="goal-pct" style="color:'+(complete?'var(--green)':'var(--accent)')+'">'+Math.round(pct)+'%</div>'+
-        '<div class="goal-saved-lbl">'+(target>0?fmt(target)+' goal':'no target')+'</div>'+
+        '<div class="goal-pct" style="color:'+(complete?'var(--green)':'var(--accent)')+'">'+Math.round(targetPct)+'%</div>'+
+        '<div class="goal-saved-lbl">'+(target>0?'of '+fmt(target):'no target')+'</div>'+
       '</div>';
     list.appendChild(row);
   });
@@ -1049,17 +1111,21 @@ function renderGoals(){
 function openGoal(i){
   activeGoalIdx=i;
   var g=goals[i];
-  var target=g.target||0;var saved=g.saved||0;
-  var pct=target>0?Math.min(Math.round(saved/target*100),100):0;
+  var target=g.target||0;var saved=g.saved||0;var goalPct=g.percent||0;
+  var targetPct=target>0?Math.min(Math.round(saved/target*100),100):0;
+  var monthlyAlloc=data.income*goalPct/100;
   document.getElementById("goal-m-ic").textContent=g.emoji;
   document.getElementById("goal-m-name").textContent=g.name;
-  document.getElementById("goal-m-sub").textContent=target>0?("Saved "+fmt(saved)+" of "+fmt(target)+" · "+pct+"% complete"):"No target set yet";
+  document.getElementById("goal-m-sub").textContent=
+    (goalPct>0?goalPct+'% of pay = '+fmt(monthlyAlloc)+'/mo · ':'No monthly % set · ')+
+    (target>0?'Saved '+fmt(saved)+' of '+fmt(target)+' ('+targetPct+'% complete)':'No target set');
   var re=document.getElementById("goal-m-saved");
-  re.textContent=fmt(saved)+" saved";
-  re.style.color=pct>=100?"var(--green)":"var(--accent)";
+  re.textContent=fmt(saved)+" saved total";
+  re.style.color=targetPct>=100?"var(--green)":"var(--accent)";
   document.getElementById("goal-amt").value="";
   document.getElementById("goal-note").value="";
   document.getElementById("goal-target-inp").value=target||"";
+  document.getElementById("goal-pct-inp").value=goalPct||"";
   document.getElementById("goal-ov").classList.add("show");
   setTimeout(function(){document.getElementById("goal-amt").focus();},280);
 }
@@ -1070,11 +1136,16 @@ function addToGoal(){
   var g=goals[activeGoalIdx];
   var newTarget=parseFloat(document.getElementById("goal-target-inp").value);
   if(!isNaN(newTarget)&&newTarget>=0)g.target=newTarget;
+  var newPct=parseFloat(document.getElementById("goal-pct-inp").value);
+  if(!isNaN(newPct)&&newPct>=0)g.percent=newPct;
   var amt=parseFloat(document.getElementById("goal-amt").value);
   if(amt>0)g.saved=(g.saved||0)+amt;
   goals[activeGoalIdx]=g;
   saveGoals();
   renderGoals();
+  // Refresh settings % row if settings is open
+  var settingsEl=document.getElementById("cfg-goal-"+activeGoalIdx);
+  if(settingsEl)settingsEl.value=g.percent||0;
   closeGoal();
   showToast("Goal updated!");
 }
@@ -1085,6 +1156,7 @@ function deleteGoal(){
   goals.splice(activeGoalIdx,1);
   saveGoals();
   renderGoals();
+  loadSettingsUI();
   closeGoal();
 }
 
@@ -1092,6 +1164,7 @@ function openAddGoal(){
   document.getElementById("new-goal-emoji").value="⭐";
   document.getElementById("new-goal-name").value="";
   document.getElementById("new-goal-target").value="";
+  document.getElementById("new-goal-pct").value="";
   document.getElementById("add-goal-ov").classList.add("show");
   setTimeout(function(){document.getElementById("new-goal-name").focus();},280);
 }
@@ -1100,10 +1173,12 @@ function confirmAddGoal(){
   var emoji=(document.getElementById("new-goal-emoji").value.trim()||"⭐");
   var name=document.getElementById("new-goal-name").value.trim();
   var target=parseFloat(document.getElementById("new-goal-target").value)||0;
+  var pct=parseFloat(document.getElementById("new-goal-pct").value)||0;
   if(!name){alert("Please enter a goal name.");return;}
-  goals.push({id:"goal_"+Date.now(),name:name,emoji:emoji,target:target,saved:0});
+  goals.push({id:"goal_"+Date.now(),name:name,emoji:emoji,target:target,saved:0,percent:pct});
   saveGoals();
   renderGoals();
+  loadSettingsUI();
   closeAddGoal();
   showToast("Goal added!");
 }
