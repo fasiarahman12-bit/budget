@@ -241,7 +241,7 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro D
   <div class="login-logo">🐦</div>
   <div class="login-title">Budgie</div>
   <div class="login-sub">Your personal budget tracker</div>
-  <button class="google-btn" onclick="signInWithGoogle()">
+  <button class="google-btn" id="login-btn" onclick="signInWithGoogle()">
     <svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
     Continue with Google
   </button>
@@ -493,49 +493,61 @@ var db=firebase.firestore();
 var currentUser=null;
 var dbCache={};
 
-function showLoading(v){document.getElementById("loading-overlay").style.display=v?"flex":"none";}
+function showLoading(v){document.getElementById("loading-overlay").style.display=v?"flex":"none";} // kept for compat
+
+function showState(s){
+  document.getElementById("login-screen").style.display=s==="login"?"flex":"none";
+  document.getElementById("loading-overlay").style.display=s==="loading"?"flex":"none";
+  document.getElementById("app-wrap").style.display=s==="app"?"block":"none";
+}
 
 function signInWithGoogle(){
   var provider=new firebase.auth.GoogleAuthProvider();
-  // iOS Safari blocks popups — use redirect on mobile
-  var isMobile=/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  if(isMobile){
-    auth.signInWithRedirect(provider).catch(function(e){alert("Sign-in failed: "+e.message);});
-  }else{
-    auth.signInWithPopup(provider).catch(function(e){
-      if(e.code==="auth/popup-blocked"||e.code==="auth/cancelled-popup-request"){
-        auth.signInWithRedirect(provider);
-      }else{
-        alert("Sign-in failed: "+e.message);
-      }
-    });
-  }
+  var btn=document.getElementById("login-btn");
+  btn.textContent="Connecting...";btn.disabled=true;
+  // Always use redirect — works on all browsers and iOS Safari
+  auth.signInWithRedirect(provider).catch(function(e){
+    btn.textContent="Continue with Google";btn.disabled=false;
+    alert("Sign-in failed: "+e.message);
+  });
 }
 function doSignOut(){if(confirm("Sign out of Budgie?"))auth.signOut();}
 
-// Handle redirect sign-in result (mobile)
+// Show loading state immediately while Firebase checks auth
+showState("loading");
+
+// Handle redirect result first, then let onAuthStateChanged take over
 auth.getRedirectResult().catch(function(e){
-  if(e&&e.code&&e.code!=="auth/no-current-user"){alert("Sign-in failed: "+e.message);}
+  if(e&&e.code&&e.code!=="auth/no-current-user"&&e.code!=="auth/null-user"){
+    console.warn("Redirect error:",e.code);
+  }
 });
 
 auth.onAuthStateChanged(function(user){
-  currentUser=user;
-  if(user){
-    document.getElementById("login-screen").style.display="none";
-    document.getElementById("app-wrap").style.display="block";
-    var name=user.displayName?user.displayName.split(" ")[0]:user.email.split("@")[0];
-    document.getElementById("user-name").textContent=name;
-    document.getElementById("user-info").textContent="Signed in as "+user.email;
-    loadUserData();
-  }else{
-    document.getElementById("login-screen").style.display="flex";
-    document.getElementById("app-wrap").style.display="none";
-    dbCache={};
+  try{
+    currentUser=user;
+    if(user){
+      // Set user display info safely
+      var name="User";
+      try{name=user.displayName?user.displayName.split(" ")[0]:(user.email?user.email.split("@")[0]:"User");}catch(ne){}
+      var nameEl=document.getElementById("user-name");if(nameEl)nameEl.textContent=name;
+      var infoEl=document.getElementById("user-info");if(infoEl)infoEl.textContent="Signed in as "+(user.email||user.uid);
+      // Show loading while data fetches, then reveal app
+      showState("loading");
+      loadUserData();
+    }else{
+      dbCache={};
+      showState("login");
+      var btn=document.getElementById("login-btn");
+      if(btn){btn.textContent="Continue with Google";btn.disabled=false;}
+    }
+  }catch(err){
+    console.error("Auth state error:",err);
+    showState("login");
   }
 });
 
 async function loadUserData(){
-  showLoading(true);
   try{
     var uid=currentUser.uid;
     var cfgDoc=await db.collection("users").doc(uid).collection("data").doc("config").get();
@@ -549,7 +561,7 @@ async function loadUserData(){
     CFG=Object.assign({},DEF);
     data={income:0,txns:[]};
   }
-  showLoading(false);
+  showState("app");
   render();
 }
 
