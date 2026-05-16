@@ -349,47 +349,53 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro D
 </div>
 
 <!-- FOOD -->
-<div class="sec-divider"><span class="sec-title">Food & Drink</span><span class="sec-pct-badge" id="sh-food">—</span></div>
-<div class="cat-group">
-  <div class="cat-row" onclick="openSpend('eating','🍔','Eating out & takeaways')"><div class="cat-accent" style="background:#F5A896"></div><div class="ci" style="background:#FDEAE6">🍔</div><div class="cat-info"><div class="cat-name">Eating out & takeaways</div><div class="cat-sub">spent <span id="sp-eating">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-eating" style="background:#F5A896"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-eating">£0</div><div class="cat-rl" id="lbl-eating">left</div><div class="cat-pp" id="pct-eating"></div></div></div>
-  <div class="cat-row" onclick="openSpend('snacks','☕','Snacks & coffees')"><div class="cat-accent" style="background:#F5A896"></div><div class="ci" style="background:#FDEAE6">☕</div><div class="cat-info"><div class="cat-name">Snacks & coffees</div><div class="cat-sub">spent <span id="sp-snacks">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-snacks" style="background:#F5A896"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-snacks">£0</div><div class="cat-rl" id="lbl-snacks">left</div><div class="cat-pp" id="pct-snacks"></div></div></div>
-  <div class="cat-row" onclick="openSpend('grocery','🛒','Groceries')"><div class="cat-accent" style="background:#F5A896"></div><div class="ci" style="background:#FDEAE6">🛒</div><div class="cat-info"><div class="cat-name">Groceries</div><div class="cat-sub">spent <span id="sp-grocery">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-grocery" style="background:#F5A896"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-grocery">£0</div><div class="cat-rl" id="lbl-grocery">left</div><div class="cat-pp" id="pct-grocery"></div></div></div>
+<div class="sec-divider" id="secdiv-food"><span class="sec-title">Food & Drink</span><span class="sec-pct-badge" id="sh-food">—</span></div>
+<div class="cat-group" id="catgrp-food">
+  <div class="cat-row" id="catrow-eating" onclick="openSpend('eating','🍔','Eating out & takeaways')"><div class="cat-accent" style="background:#F5A896"></div><div class="ci" style="background:#FDEAE6">🍔</div><div class="cat-info"><div class="cat-name">Eating out & takeaways</div><div class="cat-sub">spent <span id="sp-eating">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-eating" style="background:#F5A896"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-eating">£0</div><div class="cat-rl" id="lbl-eating">left</div><div class="cat-pp" id="pct-eating"></div></div></div>
+  <div class="cat-row" id="catrow-snacks" onclick="openSpend('snacks','☕','Snacks & coffees')"><div class="cat-accent" style="background:#F5A896"></div><div class="ci" style="background:#FDEAE6">☕</div><div class="cat-info"><div class="cat-name">Snacks & coffees</div><div class="cat-sub">spent <span id="sp-snacks">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-snacks" style="background:#F5A896"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-snacks">£0</div><div class="cat-rl" id="lbl-snacks">left</div><div class="cat-pp" id="pct-snacks"></div></div></div>
+  <div class="cat-row" id="catrow-grocery" onclick="openSpend('grocery','🛒','Groceries')"><div class="cat-accent" style="background:#F5A896"></div><div class="ci" style="background:#FDEAE6">🛒</div><div class="cat-info"><div class="cat-name">Groceries</div><div class="cat-sub">spent <span id="sp-grocery">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-grocery" style="background:#F5A896"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-grocery">£0</div><div class="cat-rl" id="lbl-grocery">left</div><div class="cat-pp" id="pct-grocery"></div></div></div>
 </div>
 
 <!-- COMMUTE -->
-<div class="sec-divider"><span class="sec-title">Commute</span><span class="sec-pct-badge" id="sh-commute">—</span></div>
-<div class="cat-group">
-  <div class="cat-row" onclick="openSpend('taxi','🚕','Taxi to work')"><div class="cat-accent" style="background:#8EC4E8"></div><div class="ci" style="background:#DCF0FA">🚕</div><div class="cat-info"><div class="cat-name">Taxi to work</div><div class="cat-sub">spent <span id="sp-taxi">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-taxi" style="background:#8EC4E8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-taxi">£0</div><div class="cat-rl" id="lbl-taxi">left</div><div class="cat-pp" id="pct-taxi"></div></div></div>
-  <div class="cat-row" onclick="openSpend('bus','🚌','Bus tickets')"><div class="cat-accent" style="background:#8EC4E8"></div><div class="ci" style="background:#DCF0FA">🚌</div><div class="cat-info"><div class="cat-name">Bus tickets</div><div class="cat-sub">spent <span id="sp-bus">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-bus" style="background:#8EC4E8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-bus">£0</div><div class="cat-rl" id="lbl-bus">left</div><div class="cat-pp" id="pct-bus"></div></div></div>
-  <div class="cat-row" onclick="openSpend('train','🚆','Train & tram')"><div class="cat-accent" style="background:#8EC4E8"></div><div class="ci" style="background:#DCF0FA">🚆</div><div class="cat-info"><div class="cat-name">Train & tram</div><div class="cat-sub">spent <span id="sp-train">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-train" style="background:#8EC4E8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-train">£0</div><div class="cat-rl" id="lbl-train">left</div><div class="cat-pp" id="pct-train"></div></div></div>
+<div class="sec-divider" id="secdiv-commute"><span class="sec-title">Commute</span><span class="sec-pct-badge" id="sh-commute">—</span></div>
+<div class="cat-group" id="catgrp-commute">
+  <div class="cat-row" id="catrow-taxi" onclick="openSpend('taxi','🚕','Taxi to work')"><div class="cat-accent" style="background:#8EC4E8"></div><div class="ci" style="background:#DCF0FA">🚕</div><div class="cat-info"><div class="cat-name">Taxi to work</div><div class="cat-sub">spent <span id="sp-taxi">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-taxi" style="background:#8EC4E8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-taxi">£0</div><div class="cat-rl" id="lbl-taxi">left</div><div class="cat-pp" id="pct-taxi"></div></div></div>
+  <div class="cat-row" id="catrow-bus" onclick="openSpend('bus','🚌','Bus tickets')"><div class="cat-accent" style="background:#8EC4E8"></div><div class="ci" style="background:#DCF0FA">🚌</div><div class="cat-info"><div class="cat-name">Bus tickets</div><div class="cat-sub">spent <span id="sp-bus">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-bus" style="background:#8EC4E8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-bus">£0</div><div class="cat-rl" id="lbl-bus">left</div><div class="cat-pp" id="pct-bus"></div></div></div>
+  <div class="cat-row" id="catrow-train" onclick="openSpend('train','🚆','Train & tram')"><div class="cat-accent" style="background:#8EC4E8"></div><div class="ci" style="background:#DCF0FA">🚆</div><div class="cat-info"><div class="cat-name">Train & tram</div><div class="cat-sub">spent <span id="sp-train">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-train" style="background:#8EC4E8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-train">£0</div><div class="cat-rl" id="lbl-train">left</div><div class="cat-pp" id="pct-train"></div></div></div>
 </div>
 
 <!-- TRIPS -->
-<div class="sec-divider"><span class="sec-title">Trips & Travel</span><span class="sec-pct-badge" id="sh-trips">—</span></div>
-<div class="cat-group">
-  <div class="cat-row" onclick="openSpend('trips','✈️','Trips & holidays')"><div class="cat-accent" style="background:#EAC882"></div><div class="ci" style="background:#FAF0D8">✈️</div><div class="cat-info"><div class="cat-name">Trips & holidays</div><div class="cat-sub">spent <span id="sp-trips">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-trips" style="background:#EAC882"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-trips">£0</div><div class="cat-rl" id="lbl-trips">left</div><div class="cat-pp" id="pct-trips"></div></div></div>
+<div class="sec-divider" id="secdiv-trips"><span class="sec-title">Trips & Travel</span><span class="sec-pct-badge" id="sh-trips">—</span></div>
+<div class="cat-group" id="catgrp-trips">
+  <div class="cat-row" id="catrow-trips" onclick="openSpend('trips','✈️','Trips & holidays')"><div class="cat-accent" style="background:#EAC882"></div><div class="ci" style="background:#FAF0D8">✈️</div><div class="cat-info"><div class="cat-name">Trips & holidays</div><div class="cat-sub">spent <span id="sp-trips">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-trips" style="background:#EAC882"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-trips">£0</div><div class="cat-rl" id="lbl-trips">left</div><div class="cat-pp" id="pct-trips"></div></div></div>
 </div>
 
 <!-- LIFESTYLE -->
-<div class="sec-divider"><span class="sec-title">Lifestyle</span><span class="sec-pct-badge" id="sh-lifestyle">—</span></div>
-<div class="cat-group">
-  <div class="cat-row" onclick="openSpend('clothes','👗','Clothes & shopping')"><div class="cat-accent" style="background:#8EC4A8"></div><div class="ci" style="background:#DFF2EA">👗</div><div class="cat-info"><div class="cat-name">Clothes & shopping</div><div class="cat-sub">spent <span id="sp-clothes">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-clothes" style="background:#8EC4A8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-clothes">£0</div><div class="cat-rl" id="lbl-clothes">left</div><div class="cat-pp" id="pct-clothes"></div></div></div>
-  <div class="cat-row" onclick="openSpend('fun','🎉','Fun')"><div class="cat-accent" style="background:#8EC4A8"></div><div class="ci" style="background:#DFF2EA">🎉</div><div class="cat-info"><div class="cat-name">Fun</div><div class="cat-sub">spent <span id="sp-fun">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-fun" style="background:#8EC4A8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-fun">£0</div><div class="cat-rl" id="lbl-fun">left</div><div class="cat-pp" id="pct-fun"></div></div></div>
-  <div class="cat-row" onclick="openSpend('gym','🏋️','Gym & fitness')"><div class="cat-accent" style="background:#8EC4A8"></div><div class="ci" style="background:#DFF2EA">🏋️</div><div class="cat-info"><div class="cat-name">Gym & fitness</div><div class="cat-sub">spent <span id="sp-gym">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-gym" style="background:#8EC4A8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-gym">£0</div><div class="cat-rl" id="lbl-gym">left</div><div class="cat-pp" id="pct-gym"></div></div></div>
-  <div class="cat-row" onclick="openSpend('subs','📱','Subscriptions')"><div class="cat-accent" style="background:#8EC4A8"></div><div class="ci" style="background:#DFF2EA">📱</div><div class="cat-info"><div class="cat-name">Subscriptions</div><div class="cat-sub">spent <span id="sp-subs">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-subs" style="background:#8EC4A8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-subs">£0</div><div class="cat-rl" id="lbl-subs">left</div><div class="cat-pp" id="pct-subs"></div></div></div>
+<div class="sec-divider" id="secdiv-lifestyle"><span class="sec-title">Lifestyle</span><span class="sec-pct-badge" id="sh-lifestyle">—</span></div>
+<div class="cat-group" id="catgrp-lifestyle">
+  <div class="cat-row" id="catrow-clothes" onclick="openSpend('clothes','👗','Clothes & shopping')"><div class="cat-accent" style="background:#8EC4A8"></div><div class="ci" style="background:#DFF2EA">👗</div><div class="cat-info"><div class="cat-name">Clothes & shopping</div><div class="cat-sub">spent <span id="sp-clothes">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-clothes" style="background:#8EC4A8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-clothes">£0</div><div class="cat-rl" id="lbl-clothes">left</div><div class="cat-pp" id="pct-clothes"></div></div></div>
+  <div class="cat-row" id="catrow-fun" onclick="openSpend('fun','🎉','Fun')"><div class="cat-accent" style="background:#8EC4A8"></div><div class="ci" style="background:#DFF2EA">🎉</div><div class="cat-info"><div class="cat-name">Fun</div><div class="cat-sub">spent <span id="sp-fun">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-fun" style="background:#8EC4A8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-fun">£0</div><div class="cat-rl" id="lbl-fun">left</div><div class="cat-pp" id="pct-fun"></div></div></div>
+  <div class="cat-row" id="catrow-gym" onclick="openSpend('gym','🏋️','Gym & fitness')"><div class="cat-accent" style="background:#8EC4A8"></div><div class="ci" style="background:#DFF2EA">🏋️</div><div class="cat-info"><div class="cat-name">Gym & fitness</div><div class="cat-sub">spent <span id="sp-gym">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-gym" style="background:#8EC4A8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-gym">£0</div><div class="cat-rl" id="lbl-gym">left</div><div class="cat-pp" id="pct-gym"></div></div></div>
+  <div class="cat-row" id="catrow-subs" onclick="openSpend('subs','📱','Subscriptions')"><div class="cat-accent" style="background:#8EC4A8"></div><div class="ci" style="background:#DFF2EA">📱</div><div class="cat-info"><div class="cat-name">Subscriptions</div><div class="cat-sub">spent <span id="sp-subs">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-subs" style="background:#8EC4A8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-subs">£0</div><div class="cat-rl" id="lbl-subs">left</div><div class="cat-pp" id="pct-subs"></div></div></div>
 </div>
 
 <!-- EDUCATION -->
-<div class="sec-divider"><span class="sec-title">Education</span><span class="sec-pct-badge" id="sh-uni">—</span></div>
-<div class="cat-group">
-  <div class="cat-row" onclick="openSpend('uni','🎓','Uni fees')"><div class="cat-accent" style="background:#C4BAF5"></div><div class="ci" style="background:#EDEAFB">🎓</div><div class="cat-info"><div class="cat-name">Uni fees</div><div class="cat-sub">spent <span id="sp-uni">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-uni" style="background:#C4BAF5"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-uni">£0</div><div class="cat-rl" id="lbl-uni">left</div><div class="cat-pp" id="pct-uni"></div></div></div>
+<div class="sec-divider" id="secdiv-uni"><span class="sec-title">Education</span><span class="sec-pct-badge" id="sh-uni">—</span></div>
+<div class="cat-group" id="catgrp-uni">
+  <div class="cat-row" id="catrow-uni" onclick="openSpend('uni','🎓','Uni fees')"><div class="cat-accent" style="background:#C4BAF5"></div><div class="ci" style="background:#EDEAFB">🎓</div><div class="cat-info"><div class="cat-name">Uni fees</div><div class="cat-sub">spent <span id="sp-uni">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-uni" style="background:#C4BAF5"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-uni">£0</div><div class="cat-rl" id="lbl-uni">left</div><div class="cat-pp" id="pct-uni"></div></div></div>
 </div>
 
 <!-- OTHER -->
-<div class="sec-divider"><span class="sec-title">Other</span><span class="sec-pct-badge" id="sh-other">—</span></div>
-<div class="cat-group">
-  <div class="cat-row" onclick="openSpend('extra','💸','Extra spending')"><div class="cat-accent" style="background:#CEB0E8"></div><div class="ci" style="background:#F0E8FA">💸</div><div class="cat-info"><div class="cat-name">Extra spending</div><div class="cat-sub">spent <span id="sp-extra">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-extra" style="background:#CEB0E8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-extra">£0</div><div class="cat-rl" id="lbl-extra">left</div><div class="cat-pp" id="pct-extra"></div></div></div>
-  <div class="cat-row" onclick="openSpend('mum','💝','Mum spending')"><div class="cat-accent" style="background:#ECA8C8"></div><div class="ci" style="background:#FAE8F2">💝</div><div class="cat-info"><div class="cat-name">Mum spending</div><div class="cat-sub">spent <span id="sp-mum">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-mum" style="background:#ECA8C8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-mum">£0</div><div class="cat-rl" id="lbl-mum">left</div><div class="cat-pp" id="pct-mum"></div></div></div>
+<div class="sec-divider" id="secdiv-other"><span class="sec-title">Other</span><span class="sec-pct-badge" id="sh-other">—</span></div>
+<div class="cat-group" id="catgrp-other">
+  <div class="cat-row" id="catrow-extra" onclick="openSpend('extra','💸','Extra spending')"><div class="cat-accent" style="background:#CEB0E8"></div><div class="ci" style="background:#F0E8FA">💸</div><div class="cat-info"><div class="cat-name">Extra spending</div><div class="cat-sub">spent <span id="sp-extra">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-extra" style="background:#CEB0E8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-extra">£0</div><div class="cat-rl" id="lbl-extra">left</div><div class="cat-pp" id="pct-extra"></div></div></div>
+  <div class="cat-row" id="catrow-mum" onclick="openSpend('mum','💝','Mum spending')"><div class="cat-accent" style="background:#ECA8C8"></div><div class="ci" style="background:#FAE8F2">💝</div><div class="cat-info"><div class="cat-name">Mum spending</div><div class="cat-sub">spent <span id="sp-mum">£0</span></div><div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-mum" style="background:#ECA8C8"></div></div></div><div class="cat-right"><div class="cat-rem" id="rem-mum">£0</div><div class="cat-rl" id="lbl-mum">left</div><div class="cat-pp" id="pct-mum"></div></div></div>
+</div>
+
+<!-- CUSTOM CATEGORIES (dynamic) -->
+<div id="custom-cats-wrap" style="display:none">
+  <div class="sec-divider" id="secdiv-custom"><span class="sec-title">My Categories</span></div>
+  <div class="cat-group" id="catgrp-custom"></div>
 </div>
 
 <div class="hist-wrap">
@@ -420,10 +426,25 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro D
 </div>
 <div class="set-section">
   <div class="set-head">Invest & Save</div>
-  <div class="set-row"><div class="set-lbl">📈 Investments (e.g. Trading 212)</div><input class="set-inp" id="cfg-invest" type="number" min="0" max="100" step="0.5" oninput="updateAllocBar()"><span class="set-unit">%</span></div>
-  <div id="goal-settings-rows"></div>
-  <div style="padding:10px 18px 12px;border-top:1px solid var(--border)">
-    <button onclick="openAddGoal()" style="font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);border:1px solid #D8D2F0;border-radius:6px;padding:7px 14px;cursor:pointer;width:100%">+ Add Savings Goal</button>
+  <div class="set-row">
+    <div class="set-lbl" style="font-size:13px">Total invest &amp; save pot</div>
+    <input class="set-inp" id="cfg-invest" type="number" min="0" max="100" step="0.5" oninput="updateAllocBar()">
+    <span class="set-unit">%</span>
+  </div>
+  <!-- INNER POOL SPLIT -->
+  <div id="invest-pool-section" style="background:var(--accent-soft);padding:12px 18px 14px;border-top:1px solid #D8D2F0">
+    <div style="font-size:10px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Split your invest pot:</div>
+    <div style="height:5px;background:rgba(160,150,232,.2);border-radius:3px;margin-bottom:4px;overflow:hidden"><div id="invest-pool-fill" style="height:100%;border-radius:3px;background:var(--accent);transition:width .3s;width:0%"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--accent);margin-bottom:10px"><span id="invest-pool-used">0% allocated</span><span id="invest-pool-left">100% remaining</span></div>
+    <div style="display:flex;align-items:center;padding:8px 0;border-bottom:1px solid rgba(160,150,232,.25)">
+      <div class="set-lbl" style="font-size:13px">📈 Direct Investments</div>
+      <input id="cfg-investDirect" type="number" min="0" max="100" step="0.5" oninput="updateInvestPoolBar()" style="width:60px;text-align:right;border:1px solid #D8D2F0;border-radius:4px;padding:6px 8px;font-size:13px;font-weight:700;color:var(--text);outline:none;background:transparent">
+      <span class="set-unit">%</span>
+    </div>
+    <div id="goal-settings-rows"></div>
+    <div style="margin-top:10px">
+      <button onclick="openAddGoal()" style="font-size:12px;font-weight:700;color:var(--accent);background:transparent;border:1px dashed #C0B8F0;border-radius:6px;padding:7px 14px;cursor:pointer;width:100%">+ Add Savings Goal</button>
+    </div>
   </div>
 </div>
 <div class="set-section">
@@ -458,6 +479,8 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro D
   <div class="set-row"><div class="set-lbl">Extra spending</div><input class="set-inp" id="cfg-extra" type="number" min="0" max="100" step="0.5" oninput="updateAllocBar()"><span class="set-unit">%</span></div>
   <div class="set-row"><div class="set-lbl">Mum spending</div><input class="set-inp" id="cfg-mum" type="number" min="0" max="100" step="0.5" oninput="updateAllocBar()"><span class="set-unit">%</span></div>
 </div>
+<div id="custom-cats-settings-section"></div>
+<div id="hidden-cats-settings-section"></div>
 <button class="save-btn" onclick="saveSettings()">Save Settings</button>
 <p class="set-note">Total must stay at or below 100% to save.</p>
 <button class="signout-btn" onclick="doSignOut()">Sign Out</button>
@@ -538,14 +561,14 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro D
     <div class="mtitle" id="goal-m-name"></div>
     <div class="msub" id="goal-m-sub"></div>
     <div class="mrem" id="goal-m-saved" style="color:var(--accent)"></div>
-    <div style="font-size:12px;color:var(--dim);margin-bottom:6px">Add money to this goal:</div>
+    <div style="font-size:12px;color:var(--dim);margin-bottom:6px">Add money to this goal (or update % &amp; target below):</div>
     <input class="ainp" id="goal-amt" type="number" inputmode="decimal" placeholder="0.00" step="0.01" min="0">
     <input class="ninp" id="goal-note" type="text" placeholder="Note — e.g. Birthday money">
     <div style="display:flex;gap:8px;margin-top:14px">
       <input class="ninp" id="goal-target-inp" type="number" inputmode="decimal" placeholder="Target amount £" step="1" min="0" style="margin-top:0;flex:1">
       <div style="display:flex;align-items:center;gap:4px;border:1px solid var(--border);border-radius:4px;padding:0 12px;background:var(--card2);flex-shrink:0">
         <input id="goal-pct-inp" type="number" inputmode="decimal" placeholder="%" step="0.5" min="0" max="100" style="width:42px;border:none;background:transparent;font-size:14px;font-weight:700;color:var(--text);outline:none;text-align:center">
-        <span style="font-size:13px;color:var(--dim)">% /mo</span>
+        <span style="font-size:11px;color:var(--dim);white-space:nowrap">% of pot</span>
       </div>
     </div>
     <div class="mbtns">
@@ -573,12 +596,34 @@ body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'SF Pro D
       <input class="ninp" id="new-goal-target" type="number" inputmode="decimal" placeholder="Target £ amount" step="1" min="0" style="margin-top:0;flex:1">
       <div style="display:flex;align-items:center;gap:4px;border:1px solid var(--border);border-radius:4px;padding:0 12px;background:var(--card2);flex-shrink:0">
         <input id="new-goal-pct" type="number" inputmode="decimal" placeholder="%" step="0.5" min="0" max="100" style="width:42px;border:none;background:transparent;font-size:14px;font-weight:700;color:var(--text);outline:none;text-align:center">
-        <span style="font-size:13px;color:var(--dim)">% /mo</span>
+        <span style="font-size:11px;color:var(--dim);white-space:nowrap">% of pot</span>
       </div>
     </div>
     <div class="mbtns">
       <button class="bcn" onclick="closeAddGoal()">Cancel</button>
       <button class="bad" onclick="confirmAddGoal()">Create Goal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD CUSTOM CATEGORY MODAL -->
+<div class="overlay" id="add-custom-cat-ov" onclick="if(event.target===this)closeAddCustomCat()">
+  <div class="modal">
+    <div class="modal-pill"></div>
+    <div class="micon">➕</div>
+    <div class="mtitle">New Category</div>
+    <div class="msub">Add your own spending category</div>
+    <div style="display:flex;gap:8px;margin-bottom:8px">
+      <input class="ninp" id="new-cat-emoji" type="text" placeholder="💡" style="width:62px;text-align:center;font-size:22px;margin-top:0;flex-shrink:0;padding:8px">
+      <input class="ninp" id="new-cat-name" type="text" placeholder="Category name — e.g. Pet, Baby" style="margin-top:0;flex:1">
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <input class="ninp" id="new-cat-pct" type="number" min="0" max="100" step="0.5" placeholder="0" inputmode="decimal" style="margin-top:0;width:80px;text-align:right">
+      <span style="font-size:13px;color:var(--dim)">% of monthly pay</span>
+    </div>
+    <div class="mbtns">
+      <button class="bcn" onclick="closeAddCustomCat()">Cancel</button>
+      <button class="bad" onclick="confirmAddCustomCat()">Create</button>
     </div>
   </div>
 </div>
@@ -718,7 +763,16 @@ async function loadUserData(){
   try{
     var uid=currentUser.uid;
     var cfgDoc=await db.collection("users").doc(uid).collection("data").doc("config").get();
-    if(cfgDoc.exists){CFG=Object.assign({},DEF,cfgDoc.data());}else{CFG=Object.assign({},DEF);}
+    if(cfgDoc.exists){CFG=Object.assign({investDirect:100},DEF,cfgDoc.data());}else{CFG=Object.assign({investDirect:100},DEF);}
+    if(CFG.investDirect===undefined)CFG.investDirect=100;
+    if(!CFG.hiddenCats)CFG.hiddenCats=[];
+    if(!CFG.customCats)CFG.customCats=[];
+    // Register custom cats in lookup tables
+    (CFG.customCats||[]).forEach(function(c){
+      CAT_COLORS[c.id]=c.color||"#A096E8";
+      NAMES[c.id]=c.name;
+      ICONS[c.id]=c.emoji||"💡";
+    });
     var monthsSnap=await db.collection("users").doc(uid).collection("months").get();
     dbCache={};
     monthsSnap.forEach(function(doc){dbCache[doc.id]=doc.data();});
@@ -761,7 +815,9 @@ var CFG=Object.assign({},DEF);
 
 function pcts(){
   var c=CFG;
-  return {eating:c.eating/100,snacks:c.snacks/100,grocery:c.grocery/100,taxi:c.taxi/100,bus:c.bus/100,train:c.train/100,trips:c.trips/100,clothes:c.clothes/100,fun:c.fun/100,gym:c.gym/100,subs:c.subs/100,uni:c.uni/100,extra:c.extra/100,mum:c.mum/100};
+  var p={eating:c.eating/100,snacks:c.snacks/100,grocery:c.grocery/100,taxi:c.taxi/100,bus:c.bus/100,train:c.train/100,trips:c.trips/100,clothes:c.clothes/100,fun:c.fun/100,gym:c.gym/100,subs:c.subs/100,uni:c.uni/100,extra:c.extra/100,mum:c.mum/100};
+  (c.customCats||[]).forEach(function(cc){p[cc.id]=(cc.pct||0)/100;});
+  return p;
 }
 
 var CAT_COLORS={eating:"#E8897A",snacks:"#E8897A",grocery:"#E8897A",taxi:"#7AAED4",bus:"#7AAED4",train:"#7AAED4",trips:"#C9954A",clothes:"#6BA68A",fun:"#6BA68A",gym:"#6BA68A",subs:"#6BA68A",uni:"#9B8EE0",extra:"#B090D0",mum:"#D48AAE",invest_tag:"#A096E8"};
@@ -783,6 +839,8 @@ var CAT_RULES=[
   {k:["UNIVERSITY","STUDENT LOAN","TUITION"],cat:"uni"},
   {k:["TRADING 212"],cat:"invest_tag"}
 ];
+
+var SECTION_CATS={food:['eating','snacks','grocery'],commute:['taxi','bus','train'],trips:['trips'],lifestyle:['clothes','fun','gym','subs'],uni:['uni'],other:['extra','mum']};
 
 function categorise(desc){
   var d=desc.toUpperCase();
@@ -811,9 +869,12 @@ function allMonths(){
   });
   return res.sort(function(a,b){return a.y!==b.y?a.y-b.y:a.m-b.m;});
 }
-function totalInvested(){return allMonths().reduce(function(s,x){return s+(x.d.income||0)*CFG.invest/100;},0);}
+function investPool(income){return(income||0)*CFG.invest/100;}
+function monthlyDirectInv(){return investPool(data.income)*(CFG.investDirect||100)/100;}
+function monthlyGoalAlloc(g){return investPool(data.income)*(g.percent||0)/100;}
+function totalGoalsMonthly(){return goals.reduce(function(s,g){return s+monthlyGoalAlloc(g);},0);}
+function totalInvested(){return allMonths().reduce(function(s,x){return s+investPool(x.d.income)*(CFG.investDirect||100)/100;},0);}
 function totalGoalsSaved(){return goals.reduce(function(s,g){return s+(g.saved||0);},0);}
-function totalGoalsMonthly(){return goals.reduce(function(s,g){return s+(g.percent||0);},0)*data.income/100;}
 
 function prevMonth(){VM--;if(VM<0){VM=11;VY--;}data=load();render();}
 function nextMonth(){VM++;if(VM>11){VM=0;VY++;}data=load();render();}
@@ -831,19 +892,21 @@ function render(){
   document.getElementById("mon-lbl").textContent=MO[VM]+" "+VY;
   document.getElementById("inc-disp").textContent=fmt(data.income);
   var ts=totalSpent();
-  var actualInv=totalActualInvested();
-  var invBudget=data.income*CFG.invest/100;
-  var inv=actualInv>0?actualInv:invBudget;
+  var pool=investPool(data.income);
+  var directInv=monthlyDirectInv();
   var goalsMo=totalGoalsMonthly();
-  var lft=data.income-ts-invBudget-goalsMo;
+  var actualInv=totalActualInvested();
+  var invShow=actualInv>0?actualInv:directInv;
+  // Left over = pay minus spending minus entire invest+save pot
+  var lft=data.income-ts-pool;
   document.getElementById("s-sp").textContent=fmt(ts);
-  document.getElementById("s-in").textContent=fmt(inv+goalsMo);
+  document.getElementById("s-in").textContent=fmt(pool);
   var le=document.getElementById("s-lf");le.textContent=fmt(lft);le.style.color=lft<0?"var(--red)":"var(--green)";
-  // Banner: total invested + total goals saved
-  var allTimeSaved=totalGoalsSaved();
-  document.getElementById("total-inv").textContent=fmt(totalInvested()+allTimeSaved);
+  // Banner: all-time invested + all goals saved
+  var allTimeInv=totalInvested(),allTimeSaved=totalGoalsSaved();
+  document.getElementById("total-inv").textContent=fmt(allTimeInv+allTimeSaved);
   var ibSub=document.getElementById("ib-sub");
-  if(ibSub)ibSub.textContent="All time · "+fmt(totalInvested())+" invested + "+fmt(allTimeSaved)+" saved";
+  if(ibSub)ibSub.textContent="All time · "+fmt(allTimeInv)+" invested · "+fmt(allTimeSaved)+" in goals";
 
   var c=CFG;
   document.getElementById("sh-food").textContent=(c.eating+c.snacks+c.grocery)+"%";
@@ -853,22 +916,32 @@ function render(){
   document.getElementById("sh-uni").textContent=c.uni+"%";
   document.getElementById("sh-other").textContent=(c.extra+c.mum)+"%";
 
-  // Chips: investment per month + goal chips
-  var months=allMonths();
+  // Chips: show how the invest pot is split this month
   var chips=document.getElementById("ib-chips");chips.innerHTML="";
-  var invChip=document.createElement("div");
-  invChip.className="chip"+(months.some(function(x){return x.y===VY&&x.m===VM;})?" cur":"");
-  invChip.textContent="📈 "+fmt(invBudget)+" invested this month";
-  if(invBudget>0)chips.appendChild(invChip);
-  goals.forEach(function(g){
-    if((g.percent||0)>0){
-      var gc=document.createElement("div");
-      gc.className="chip";
-      gc.textContent=g.emoji+" "+fmt(data.income*(g.percent||0)/100)+"/mo · "+fmt(g.saved||0)+" saved";
-      chips.appendChild(gc);
+  if(pool>0){
+    var invPotPct=(CFG.investDirect||100);
+    var gc0=document.createElement("div");gc0.className="chip cur";
+    gc0.textContent="📈 "+fmt(directInv)+" investments ("+invPotPct+"%)";
+    chips.appendChild(gc0);
+    goals.forEach(function(g){
+      if((g.percent||0)>0){
+        var gc=document.createElement("div");gc.className="chip";
+        gc.textContent=g.emoji+" "+fmt(monthlyGoalAlloc(g))+" "+g.name+" ("+g.percent+"%)";
+        chips.appendChild(gc);
+      }
+    });
+    var unalloc=pool-directInv-goalsMo;
+    if(unalloc>0.5){
+      var gc2=document.createElement("div");gc2.className="chip";gc2.style.cssText="background:var(--card2);border-color:var(--border);color:var(--dim2)";
+      gc2.textContent="⬜ "+fmt(unalloc)+" unallocated";
+      chips.appendChild(gc2);
     }
-  });
-  if(!chips.children.length)chips.innerHTML='<span style="font-size:10px;color:var(--dim)">Set your income & percentages to see allocations</span>';
+  }else{
+    chips.innerHTML='<span style="font-size:10px;color:var(--dim)">Set your income &amp; invest % to see the breakdown</span>';
+  }
+
+  applyHiddenCats();
+  renderCustomCats();
 
   var P=pcts();
   Object.keys(P).forEach(function(id){
@@ -876,7 +949,12 @@ function render(){
     var cl=CAT_COLORS[id]||"#A096E8";
     var re=document.getElementById("rem-"+id);if(re){re.textContent=over?("-"+fmt(Math.abs(rem))):fmt(rem);re.style.color=over?"var(--red)":cl;}
     var lb=document.getElementById("lbl-"+id);if(lb){lb.textContent=over?"over budget":"left";lb.style.color=over?"var(--red)":"var(--dim)";}
-    var pp=document.getElementById("pct-"+id);if(pp)pp.textContent=CFG[id]>0?(CFG[id]+"% of pay"):"not set";
+    var pp=document.getElementById("pct-"+id);
+    if(pp){
+      // For custom cats, pct is stored in CFG.customCats; for built-ins it's CFG[id]
+      var catPct=CFG[id]!==undefined?CFG[id]:((CFG.customCats||[]).find(function(c){return c.id===id;})||{}).pct||0;
+      pp.textContent=catPct>0?(catPct+"% of pay"):"not set";
+    }
     var sp=document.getElementById("sp-"+id);if(sp)sp.textContent=fmt(s);
     var ba=document.getElementById("bar-"+id);if(ba){ba.style.width=(pct*100)+"%";ba.style.background=over?"var(--red)":cl;}
   });
@@ -908,6 +986,7 @@ function renderYear(){
   var yr=VY;
   document.getElementById("yr-title").textContent=yr;
   var catTotals={};Object.keys(NAMES).forEach(function(id){catTotals[id]=0;});
+  (CFG.customCats||[]).forEach(function(c){if(catTotals[c.id]===undefined)catTotals[c.id]=0;});
   var totalInc=0,totalSp=0,totalInvY=0;
   var monthData=[];
   for(var m=0;m<12;m++){
@@ -987,57 +1066,106 @@ function toggleMonthDrop(mi){
 
 function loadSettingsUI(){
   Object.keys(DEF).forEach(function(k){var el=document.getElementById("cfg-"+k);if(el)el.value=CFG[k];});
-  // Render goal % rows dynamically
+  var idEl=document.getElementById("cfg-investDirect");if(idEl)idEl.value=CFG.investDirect||100;
+
+  // Add/refresh 🗑️ hide buttons on each built-in cat setting row
+  Object.keys(DEF).forEach(function(k){
+    if(k==="invest")return;
+    var el=document.getElementById("cfg-"+k);if(!el)return;
+    var row=el.closest(".set-row");if(!row)return;
+    var existing=row.querySelector(".del-cat-btn");if(existing)existing.remove();
+    var hidden=(CFG.hiddenCats||[]).indexOf(k)>=0;
+    var btn=document.createElement("button");
+    btn.className="del-cat-btn";
+    btn.style.cssText="border:none;background:none;font-size:15px;cursor:pointer;padding:4px 6px;color:var(--dim);flex-shrink:0;line-height:1;border-radius:4px";
+    btn.textContent=hidden?"👁️":"🗑️";
+    btn.title=hidden?"Restore this category":"Hide this category";
+    (function(catId,isHidden){
+      btn.onclick=function(){isHidden?restoreBuiltinCat(catId):hideBuiltinCat(catId);};
+    })(k,hidden);
+    row.appendChild(btn);
+  });
+
+  // Render goal rows inside invest pool section
   var cont=document.getElementById("goal-settings-rows");
   if(cont){
     cont.innerHTML="";
     goals.forEach(function(g,i){
       var row=document.createElement("div");
-      row.className="set-row";
-      row.style.cssText="border-top:1px solid var(--border)";
-      row.innerHTML='<div class="set-lbl">'+g.emoji+' '+g.name+'</div>'+
-        '<input class="set-inp" id="cfg-goal-'+i+'" type="number" min="0" max="100" step="0.5" value="'+(g.percent||0)+'" oninput="updateAllocBar()">'+
+      row.style.cssText="display:flex;align-items:center;padding:8px 0;border-bottom:1px solid rgba(160,150,232,.25)";
+      row.innerHTML='<div class="set-lbl" style="font-size:13px">'+g.emoji+' '+g.name+'</div>'+
+        '<input id="cfg-goal-'+i+'" type="number" min="0" max="100" step="0.5" value="'+(g.percent||0)+'" oninput="updateInvestPoolBar()" style="width:60px;text-align:right;border:1px solid #D8D2F0;border-radius:4px;padding:6px 8px;font-size:13px;font-weight:700;color:var(--text);outline:none;background:transparent">'+
         '<span class="set-unit">%</span>';
       cont.appendChild(row);
     });
   }
+
+  renderCustomCatSettings();
+  renderHiddenCatsRestore();
   updateAllocBar();
+  updateInvestPoolBar();
+}
+function updateInvestPoolBar(){
+  // Pool sub-allocation bar (must sum to ≤ 100% of pool)
+  var poolTotal=parseFloat(document.getElementById("cfg-investDirect").value)||0;
+  goals.forEach(function(g,i){var el=document.getElementById("cfg-goal-"+i);if(el)poolTotal+=parseFloat(el.value)||0;});
+  var over=poolTotal>100;
+  var fill=document.getElementById("invest-pool-fill");
+  if(fill){fill.style.width=Math.min(poolTotal,100)+"%";fill.style.background=over?"var(--red)":poolTotal===100?"var(--green)":"var(--accent)";}
+  var used=document.getElementById("invest-pool-used");if(used)used.textContent=Math.round(poolTotal*10)/10+"% of pot allocated";
+  var lft=document.getElementById("invest-pool-left");
+  if(lft)lft.textContent=over?"⚠ Over by "+Math.round((poolTotal-100)*10)/10+"%":(100-Math.round(poolTotal*10)/10)+"% remaining";
+  // Also refresh main save button via outer bar
+  _updateSaveBtn(poolTotal>100);
 }
 function updateAllocBar(){
+  // Outer bar: spending %s + total invest pot (not sub-allocations)
   var total=0;
   Object.keys(DEF).forEach(function(k){var el=document.getElementById("cfg-"+k);if(el)total+=parseFloat(el.value)||0;});
-  goals.forEach(function(g,i){var el=document.getElementById("cfg-goal-"+i);if(el)total+=parseFloat(el.value)||0;});
+  (CFG.customCats||[]).forEach(function(c){var el=document.getElementById("cfg-custom-"+c.id);if(el)total+=parseFloat(el.value)||0;});
   var pct=Math.min(total,100),over=total>100;
   var fill=document.getElementById("alloc-fill");
   if(fill){fill.style.width=pct+"%";fill.style.background=over?"var(--red)":total>=90?"var(--gold)":"var(--accent)";}
-  var used=document.getElementById("alloc-used");if(used)used.textContent=Math.round(total*10)/10+"% allocated";
+  var used=document.getElementById("alloc-used");if(used)used.textContent=Math.round(total*10)/10+"% of pay allocated";
   var left=document.getElementById("alloc-left");if(left)left.textContent=over?"⚠ Over by "+Math.round((total-100)*10)/10+"%":(100-Math.round(total*10)/10)+"% unallocated";
+  // Check inner pool too before allowing save
+  var poolTotal=parseFloat(document.getElementById("cfg-investDirect").value)||0;
+  goals.forEach(function(g,i){var el=document.getElementById("cfg-goal-"+i);if(el)poolTotal+=parseFloat(el.value)||0;});
+  _updateSaveBtn(over||poolTotal>100);
+}
+function _updateSaveBtn(blocked){
   var btn=document.querySelector(".save-btn");
-  if(btn){
-    btn.disabled=over;
-    btn.style.opacity=over?"0.45":"1";
-    btn.style.cursor=over?"not-allowed":"pointer";
-    btn.textContent=over?"Reduce percentages to save":"Save Settings";
-  }
+  if(!btn)return;
+  var outerTotal=0;
+  Object.keys(DEF).forEach(function(k){var el=document.getElementById("cfg-"+k);if(el)outerTotal+=parseFloat(el.value)||0;});
+  (CFG.customCats||[]).forEach(function(c){var el=document.getElementById("cfg-custom-"+c.id);if(el)outerTotal+=parseFloat(el.value)||0;});
+  var poolTotal=parseFloat(document.getElementById("cfg-investDirect").value)||0;
+  goals.forEach(function(g,i){var el=document.getElementById("cfg-goal-"+i);if(el)poolTotal+=parseFloat(el.value)||0;});
+  var isBlocked=outerTotal>100||poolTotal>100;
+  btn.disabled=isBlocked;
+  btn.style.opacity=isBlocked?"0.45":"1";
+  btn.style.cursor=isBlocked?"not-allowed":"pointer";
+  if(outerTotal>100)btn.textContent="Pay %s over 100 — reduce to save";
+  else if(poolTotal>100)btn.textContent="Invest pot over 100% — reduce to save";
+  else btn.textContent="Save Settings";
 }
 function saveSettings(){
-  var total=0;
-  Object.keys(DEF).forEach(function(k){var el=document.getElementById("cfg-"+k);if(el)total+=parseFloat(el.value)||0;});
-  goals.forEach(function(g,i){var el=document.getElementById("cfg-goal-"+i);if(el)total+=parseFloat(el.value)||0;});
-  if(total>100){
-    alert("Total allocation is "+Math.round(total*10)/10+"% — reduce your percentages to 100% or less before saving.");
-    return;
-  }
+  var outerTotal=0;
+  Object.keys(DEF).forEach(function(k){var el=document.getElementById("cfg-"+k);if(el)outerTotal+=parseFloat(el.value)||0;});
+  (CFG.customCats||[]).forEach(function(c){var el=document.getElementById("cfg-custom-"+c.id);if(el)outerTotal+=parseFloat(el.value)||0;});
+  if(outerTotal>100){alert("Total pay allocation is "+Math.round(outerTotal*10)/10+"% — must be 100% or less.");return;}
+  var poolTotal=parseFloat(document.getElementById("cfg-investDirect").value)||0;
+  goals.forEach(function(g,i){var el=document.getElementById("cfg-goal-"+i);if(el)poolTotal+=parseFloat(el.value)||0;});
+  if(poolTotal>100){alert("Your invest pot split adds up to "+Math.round(poolTotal*10)/10+"% — must be 100% or less.");return;}
   Object.keys(DEF).forEach(function(k){var el=document.getElementById("cfg-"+k);if(el){var v=parseFloat(el.value);if(!isNaN(v)&&v>=0)CFG[k]=v;}});
-  // Save goal percents
+  var idEl=document.getElementById("cfg-investDirect");if(idEl){var v=parseFloat(idEl.value);if(!isNaN(v)&&v>=0)CFG.investDirect=v;}
   goals.forEach(function(g,i){var el=document.getElementById("cfg-goal-"+i);if(el){var v=parseFloat(el.value);if(!isNaN(v)&&v>=0)goals[i].percent=v;}});
-  syncCfg(CFG);
-  saveGoals();
+  (CFG.customCats||[]).forEach(function(c){var el=document.getElementById("cfg-custom-"+c.id);if(el){var v=parseFloat(el.value);if(!isNaN(v)&&v>=0)c.pct=v;}});
+  syncCfg(CFG);saveGoals();
   var btn=document.querySelector(".save-btn");
   btn.textContent="✓ Saved";btn.style.background="var(--green)";btn.style.opacity="1";
-  setTimeout(function(){btn.textContent="Save Settings";btn.style.background="";updateAllocBar();},2000);
-  render();
-  renderGoals();
+  setTimeout(function(){btn.textContent="Save Settings";btn.style.background="";updateAllocBar();updateInvestPoolBar();},2000);
+  render();renderGoals();
 }
 
 // ── SAVINGS GOALS ────────────────────────────────────────────────────
@@ -1079,16 +1207,16 @@ function renderGoals(){
   goals.forEach(function(g,i){
     var target=g.target||0;
     var saved=g.saved||0;
-    var goalPct=g.percent||0;
-    var monthlyAlloc=data.income*goalPct/100;
+    var goalPoolPct=g.percent||0;
+    var monthlyAlloc=monthlyGoalAlloc(g);
     var targetPct=target>0?Math.min(saved/target*100,100):0;
     var complete=target>0&&saved>=target;
     var row=document.createElement("div");
     row.className="goal-row";
     row.onclick=function(){openGoal(i);};
-    var allocLine=goalPct>0
-      ? (fmt(monthlyAlloc)+' set aside/mo · '+goalPct+'% of pay')
-      : 'No % set — go to Settings to allocate';
+    var allocLine=goalPoolPct>0
+      ? (fmt(monthlyAlloc)+'/mo · '+goalPoolPct+'% of invest pot')
+      : 'No allocation set — go to Settings';
     var progressLine=target>0
       ? 'Saved '+fmt(saved)+' of '+fmt(target)+(complete?' · Complete! 🎉':'')
       : 'Tap to set a target';
@@ -1111,21 +1239,22 @@ function renderGoals(){
 function openGoal(i){
   activeGoalIdx=i;
   var g=goals[i];
-  var target=g.target||0;var saved=g.saved||0;var goalPct=g.percent||0;
+  var target=g.target||0;var saved=g.saved||0;var goalPoolPct=g.percent||0;
   var targetPct=target>0?Math.min(Math.round(saved/target*100),100):0;
-  var monthlyAlloc=data.income*goalPct/100;
+  var moAlloc=monthlyGoalAlloc(g);
+  var poolAmt=investPool(data.income);
   document.getElementById("goal-m-ic").textContent=g.emoji;
   document.getElementById("goal-m-name").textContent=g.name;
   document.getElementById("goal-m-sub").textContent=
-    (goalPct>0?goalPct+'% of pay = '+fmt(monthlyAlloc)+'/mo · ':'No monthly % set · ')+
-    (target>0?'Saved '+fmt(saved)+' of '+fmt(target)+' ('+targetPct+'% complete)':'No target set');
+    (goalPoolPct>0?goalPoolPct+'% of invest pot = '+fmt(moAlloc)+'/mo · ':'No % of invest pot set · ')+
+    (target>0?'Saved '+fmt(saved)+' of '+fmt(target)+' ('+targetPct+'% done)':'No target set');
   var re=document.getElementById("goal-m-saved");
   re.textContent=fmt(saved)+" saved total";
   re.style.color=targetPct>=100?"var(--green)":"var(--accent)";
   document.getElementById("goal-amt").value="";
   document.getElementById("goal-note").value="";
   document.getElementById("goal-target-inp").value=target||"";
-  document.getElementById("goal-pct-inp").value=goalPct||"";
+  document.getElementById("goal-pct-inp").value=goalPoolPct||"";
   document.getElementById("goal-ov").classList.add("show");
   setTimeout(function(){document.getElementById("goal-amt").focus();},280);
 }
@@ -1256,7 +1385,9 @@ function splitCSV(line){
 function renderImportPreview(){
   document.getElementById("drop-area").style.display="none";
   var cont=document.getElementById("imp-rows");cont.innerHTML="";
-  var catOptions='<option value="eating">🍔 Eating out</option><option value="snacks">☕ Snacks</option><option value="grocery">🛒 Groceries</option><option value="taxi">🚕 Taxi</option><option value="bus">🚌 Bus</option><option value="train">🚆 Train</option><option value="trips">✈️ Trips</option><option value="clothes">👗 Clothes</option><option value="fun">🎉 Fun</option><option value="gym">🏋️ Gym</option><option value="subs">📱 Subs</option><option value="uni">🎓 Uni fees</option><option value="extra">💸 Extra</option><option value="mum">💝 Mum</option><option value="invest_tag">📈 Investment</option><option value="skip">⏭ Skip</option>';
+  var catOptions='<option value="eating">🍔 Eating out</option><option value="snacks">☕ Snacks</option><option value="grocery">🛒 Groceries</option><option value="taxi">🚕 Taxi</option><option value="bus">🚌 Bus</option><option value="train">🚆 Train</option><option value="trips">✈️ Trips</option><option value="clothes">👗 Clothes</option><option value="fun">🎉 Fun</option><option value="gym">🏋️ Gym</option><option value="subs">📱 Subs</option><option value="uni">🎓 Uni fees</option><option value="extra">💸 Extra</option><option value="mum">💝 Mum</option><option value="invest_tag">📈 Investment</option>';
+  (CFG.customCats||[]).forEach(function(c){catOptions+='<option value="'+c.id+'">'+(c.emoji||"💡")+' '+c.name+'</option>';});
+  catOptions+='<option value="skip">⏭ Skip</option>';
   if(impCredits.length){
     var creditTotal=impCredits.reduce(function(s,c){return s+c.amt;},0);
     var notice=document.getElementById("imp-inc-notice");
@@ -1411,6 +1542,132 @@ function showToast(msg){
   t.style.cssText="position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--card2);border:1px solid var(--border);color:var(--text);padding:11px 22px;border-radius:30px;font-size:13px;font-weight:600;z-index:500;animation:su .2s ease;white-space:nowrap;box-shadow:0 8px 32px rgba(0,0,0,.15)";
   document.body.appendChild(t);setTimeout(function(){t.remove();},2800);
 }
+// ── CUSTOM & HIDDEN CATEGORIES ────────────────────────────────────────
+function applyHiddenCats(){
+  var hidden=CFG.hiddenCats||[];
+  Object.keys(SECTION_CATS).forEach(function(sec){
+    var cats=SECTION_CATS[sec];
+    var allHidden=true;
+    cats.forEach(function(id){
+      var row=document.getElementById("catrow-"+id);
+      if(row){var h=hidden.indexOf(id)>=0;row.style.display=h?"none":"";if(!h)allHidden=false;}
+    });
+    var div=document.getElementById("secdiv-"+sec);
+    var grp=document.getElementById("catgrp-"+sec);
+    if(div)div.style.display=allHidden?"none":"";
+    if(grp)grp.style.display=allHidden?"none":"";
+  });
+}
+
+function renderCustomCats(){
+  var wrap=document.getElementById("custom-cats-wrap");
+  var grp=document.getElementById("catgrp-custom");
+  if(!grp)return;
+  var cc=CFG.customCats||[];
+  if(!cc.length){if(wrap)wrap.style.display="none";return;}
+  if(wrap)wrap.style.display="";
+  grp.innerHTML="";
+  cc.forEach(function(c){
+    var color=c.color||"#A096E8";
+    CAT_COLORS[c.id]=color;NAMES[c.id]=c.name;ICONS[c.id]=c.emoji||"💡";
+    var s=spentCat(c.id),budget=data.income*(c.pct||0)/100,rem=budget-s,pct=budget>0?Math.min(s/budget,1):0,over=s>budget&&budget>0;
+    var row=document.createElement("div");row.className="cat-row";row.id="catrow-"+c.id;
+    (function(catId,catEmoji,catName){row.onclick=function(){openSpend(catId,catEmoji,catName);};})(c.id,c.emoji||"💡",c.name);
+    row.innerHTML=
+      '<div class="cat-accent" style="background:'+color+'"></div>'+
+      '<div class="ci" style="background:'+color+'22">'+(c.emoji||"💡")+'</div>'+
+      '<div class="cat-info">'+
+        '<div class="cat-name">'+c.name+'</div>'+
+        '<div class="cat-sub">spent <span id="sp-'+c.id+'">'+fmt(s)+'</span></div>'+
+        '<div class="cat-bar-wrap"><div class="cat-bar-fill" id="bar-'+c.id+'" style="background:'+(over?"var(--red)":color)+';width:'+(pct*100)+'%"></div></div>'+
+      '</div>'+
+      '<div class="cat-right">'+
+        '<div class="cat-rem" id="rem-'+c.id+'" style="color:'+(over?"var(--red)":color)+'">'+(over?"-"+fmt(Math.abs(rem)):fmt(rem))+'</div>'+
+        '<div class="cat-rl" id="lbl-'+c.id+'" style="color:'+(over?"var(--red)":"var(--dim)")+'">'+(over?"over budget":"left")+'</div>'+
+        '<div class="cat-pp" id="pct-'+c.id+'">'+(c.pct>0?(c.pct+"% of pay"):"not set")+'</div>'+
+      '</div>';
+    grp.appendChild(row);
+  });
+}
+
+function hideBuiltinCat(id){
+  if(!CFG.hiddenCats)CFG.hiddenCats=[];
+  if(CFG.hiddenCats.indexOf(id)<0)CFG.hiddenCats.push(id);
+  syncCfg(CFG);applyHiddenCats();loadSettingsUI();
+  showToast("Category hidden — restore it from Hidden Categories below");
+}
+
+function restoreBuiltinCat(id){
+  if(!CFG.hiddenCats)CFG.hiddenCats=[];
+  CFG.hiddenCats=CFG.hiddenCats.filter(function(x){return x!==id;});
+  syncCfg(CFG);applyHiddenCats();loadSettingsUI();
+}
+
+function renderCustomCatSettings(){
+  var section=document.getElementById("custom-cats-settings-section");
+  if(!section)return;
+  var cc=CFG.customCats||[];
+  var html='<div class="set-section"><div class="set-head">My Categories</div>';
+  cc.forEach(function(c){
+    html+='<div class="set-row">'+
+      '<div class="set-lbl" style="font-size:13px">'+(c.emoji||"💡")+' '+c.name+'</div>'+
+      '<input id="cfg-custom-'+c.id+'" type="number" min="0" max="100" step="0.5" value="'+(c.pct||0)+'" oninput="updateAllocBar()" style="width:72px;text-align:right;border:1px solid var(--border);border-radius:4px;padding:7px 11px;font-size:14px;font-weight:700;color:var(--text);outline:none;background:var(--card2)">'+
+      '<span class="set-unit">%</span>'+
+      '<button onclick="deleteCustomCat(\''+c.id+'\')" style="border:none;background:none;font-size:15px;cursor:pointer;padding:4px 6px;color:var(--dim);flex-shrink:0;line-height:1;border-radius:4px" title="Remove this category">🗑️</button>'+
+    '</div>';
+  });
+  html+='<div style="padding:12px 18px"><button onclick="openAddCustomCat()" style="font-size:12px;font-weight:700;color:var(--accent);background:transparent;border:1px dashed #C0B8F0;border-radius:6px;padding:7px 14px;cursor:pointer;width:100%">+ Add Custom Category</button></div></div>';
+  section.innerHTML=html;
+}
+
+function renderHiddenCatsRestore(){
+  var section=document.getElementById("hidden-cats-settings-section");
+  if(!section)return;
+  var hidden=CFG.hiddenCats||[];
+  if(!hidden.length){section.innerHTML="";return;}
+  var html='<div class="set-section"><div class="set-head" style="color:var(--dim)">Hidden Categories</div>';
+  hidden.forEach(function(id){
+    var name=NAMES[id]||id,icon=ICONS[id]||"•";
+    html+='<div class="set-row">'+
+      '<div class="set-lbl" style="font-size:13px;color:var(--dim)">'+icon+' '+name+'</div>'+
+      '<button onclick="restoreBuiltinCat(\''+id+'\')" style="font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);border:1px solid #D8D2F0;border-radius:6px;padding:6px 14px;cursor:pointer;flex-shrink:0">Restore</button>'+
+    '</div>';
+  });
+  html+='</div>';
+  section.innerHTML=html;
+}
+
+function deleteCustomCat(id){
+  if(!confirm("Remove this custom category? Existing transactions won't be deleted."))return;
+  CFG.customCats=(CFG.customCats||[]).filter(function(c){return c.id!==id;});
+  delete CAT_COLORS[id];delete NAMES[id];delete ICONS[id];
+  syncCfg(CFG);renderCustomCatSettings();renderCustomCats();render();
+  showToast("Category removed");
+}
+
+function openAddCustomCat(){
+  document.getElementById("new-cat-emoji").value="💡";
+  document.getElementById("new-cat-name").value="";
+  document.getElementById("new-cat-pct").value="";
+  document.getElementById("add-custom-cat-ov").classList.add("show");
+  setTimeout(function(){document.getElementById("new-cat-name").focus();},280);
+}
+function closeAddCustomCat(){document.getElementById("add-custom-cat-ov").classList.remove("show");}
+function confirmAddCustomCat(){
+  var emoji=(document.getElementById("new-cat-emoji").value.trim()||"💡");
+  var name=document.getElementById("new-cat-name").value.trim();
+  var pct=parseFloat(document.getElementById("new-cat-pct").value)||0;
+  if(!name){alert("Please enter a category name.");return;}
+  if(!CFG.customCats)CFG.customCats=[];
+  var id="custom_"+Date.now();
+  var palette=["#A096E8","#7AAED4","#7EC4A6","#C9954A","#E8897A","#D48AAE","#B090D0","#8EC4E8","#C4BAF5","#F5A896"];
+  var color=palette[CFG.customCats.length%palette.length];
+  CFG.customCats.push({id:id,name:name,emoji:emoji,pct:pct,color:color});
+  syncCfg(CFG);renderCustomCatSettings();renderCustomCats();render();
+  closeAddCustomCat();
+  showToast(emoji+" "+name+" added!");
+}
+
 document.addEventListener("keydown",function(e){
   if(e.key!=="Enter")return;
   if(document.getElementById("sp-ov").classList.contains("show"))addSpend();
